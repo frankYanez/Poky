@@ -1,1 +1,189 @@
 @import "tailwindcss";
+
+/* ========================================
+   POAP-Inspired Dark Theme Variables
+   ======================================== */
+
+@theme {
+  /* Primary Violet Palette */
+  --color-violet-500: #7b61ff;
+  --color-violet-600: #6b4fef;
+  --color-violet-400: #9d85ff;
+  --color-violet-300: #be6fff;
+
+  /* Lavender Accents (darker for dark mode) */
+  --color-lavender-50: #1a1625;
+  --color-lavender-100: #231d33;
+  --color-lavender-200: #2d2640;
+
+  /* Gold/Yellow Accents */
+  --color-gold-400: #ffc857;
+  --color-gold-500: #ffb627;
+
+  /* Dark Mode Neutral Palette */
+  --color-dark-950: #09090b;
+  --color-dark-900: #0c0a13;
+  --color-dark-800: #13111a;
+  --color-dark-700: #1a1725;
+  --color-dark-600: #252133;
+  --color-dark-500: #342e47;
+  --color-dark-400: #4a4360;
+  --color-dark-300: #6b6280;
+  --color-dark-200: #9992a8;
+  --color-dark-100: #c4c0cf;
+
+  /* Shadows for dark mode */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 40px rgba(123, 97, 255, 0.3);
+  --shadow-glow-strong: 0 0 60px rgba(123, 97, 255, 0.4);
+  --shadow-card-hover: 0 20px 50px rgba(123, 97, 255, 0.25);
+  --shadow-gold-glow: 0 0 40px rgba(255, 182, 39, 0.3);
+
+  /* Glass Effect */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg-hover: rgba(255, 255, 255, 0.08);
+
+  /* Border Radius */
+  --radius-badge: 50px;
+  --radius-card: 24px;
+  --radius-button: 38px;
+
+  /* Animations */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ========================================
+   Base Styles - Dark Mode
+   ======================================== */
+
+body {
+  background: linear-gradient(180deg, var(--color-dark-900) 0%, var(--color-dark-950) 100%);
+  min-height: 100vh;
+  color: var(--color-dark-100);
+}
+
+/* ========================================
+   Glass Card Utilities
+   ======================================== */
+
+@utility glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+@utility glass-card-hover {
+  background: var(--glass-bg-hover);
+}
+
+/* ========================================
+   Custom Animations
+   ======================================== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(123, 97, 255, 0.3); }
+  50% { box-shadow: 0 0 50px rgba(123, 97, 255, 0.5); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes badge-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes celebrate {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@utility animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@utility animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@utility animate-shimmer {
+  animation: shimmer 2s linear infinite;
+  background-size: 200% 100%;
+}
+
+@utility animate-celebrate {
+  animation: celebrate 0.6s var(--ease-bounce);
+}
+
+@utility animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ========================================
+   Para Modal Override Styles
+   ======================================== */
+
+/* Overlay del modal de Para - fondo oscuro con blur */
+[data-para-modal-overlay],
+.para-modal-overlay,
+div[class*="ModalOverlay"],
+div[class*="modal-overlay"] {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Container del modal de Para - centrado */
+[data-para-modal],
+.para-modal,
+div[class*="ModalContainer"],
+div[class*="modal-container"],
+div[class*="AuthModal"] {
+  position: relative !important;
+  margin: auto !important;
+  transform: none !important;
+  top: unset !important;
+  left: unset !important;
+  right: unset !important;
+  bottom: unset !important;
+}
+
+/* Asegurar que el contenedor principal del modal esté centrado */
+cpsl-modal-v2,
+cpsl-auth-modal {
+  --cpsl-modal-position: fixed !important;
+  --cpsl-modal-inset: 0 !important;
+}
+
+cpsl-modal-v2::part(overlay),
+cpsl-auth-modal::part(overlay) {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+cpsl-modal-v2::part(container),
+cpsl-auth-modal::part(container) {
+  position: relative !important;
+  margin: auto !important;
+}

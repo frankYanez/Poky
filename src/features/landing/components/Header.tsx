@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Header() {
   return (
     <>
-      <header className=" backdrop-blur-2xl fixed top-0 left-0 z-50 w-full border-transparent border-b ">
+      <header className=" backdrop-blur-2xl fixed top-0 left-0 z-40 w-full border-transparent border-b ">
         <ContainerContent maxWidth="compact">
           <nav className="flex w-full items-center justify-between py-3">
             {/* Logo */}
@@ -24,6 +24,9 @@ export default function Header() {
             </a>
 
             {/* Desktop links */}
+            <div className="hidden items-center gap-2 md:flex">
+              <AuthModal />
+            </div>
           </nav>
         </ContainerContent>
       </header>
