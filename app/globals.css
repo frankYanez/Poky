@@ -12,12 +12,12 @@
 
 * {
   margin: 0;
-  padding: 0;
+  padding: auto;
 }
 
 body {
   min-height: 100vh;
-  background: radial-gradient(120% 120% at 50% -10%, #1d2440 0%, #0a0f1b 50%, #05070d 100%);
+  background: radial-gradient(120% 120% at 50% -10%, #05060b 0%, #000000 50%, #05070d 100%);
   color: var(--color-text);
   font-family: var(--font-sans);
   line-height: 1.6;
@@ -58,9 +58,9 @@ canvas {
 }
 
 .container {
-  width: min(100%, var(--max-width));
+  /* width: min(100%, var(--max-width)); */
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding: 0 var(--space-0);
 }
 
 .surface {
