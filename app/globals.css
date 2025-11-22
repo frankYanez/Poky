@@ -57,6 +57,20 @@ canvas {
   color: #0a0f16;
 }
 
+.floating-card {
+  animation: float 9s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-0.25deg);
+  }
+}
+
 .container {
   width: min(100%, var(--max-width));
   margin: 0 auto;
