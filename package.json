@@ -9,10 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gsap": "^3.13.0",
-    "lucide-react": "^0.554.0",
     "motion": "^12.23.24",
     "@getpara/evm-wallet-connectors": "^1.18.1",
     "@getpara/react-sdk": "^1.18.1",
@@ -21,6 +19,8 @@
     "@safe-global/safe-apps-sdk": "^9.1.0",
     "@tanstack/react-query": "^5.90.10",
     "@walletconnect/ethereum-provider": "^2.23.0",
+    "class-variance-authority": "^0.7.1",
+    "lucide-react": "^0.554.0",
     "next": "16.0.3",
     "postcss": "^8.5.6",
     "react": "19.2.0",
@@ -42,4 +42,3 @@
     "typescript": "^5"
   }
 }
-
