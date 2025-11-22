@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Poky
 
-## Getting Started
+Aplicación Web3 wallet construida con Next.js 16 y Para SDK para autenticación y gestión de wallets en múltiples blockchains.
 
-First, run the development server:
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router + Turbopack)
+- **Auth/Wallet**: Para SDK (`@getpara/react-sdk`, `@getpara/evm-wallet-connectors`)
+- **State Management**: Zustand (estado local) + TanStack Query (estado servidor)
+- **Blockchain**: wagmi + viem para interacciones EVM
+- **Styling**: Tailwind CSS v4
+- **Animations**: GSAP + Motion
+
+## Requisitos
+
+- Node.js 18+
+- npm, yarn, pnpm o bun
+
+## Instalación
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clonar el repositorio
+git clone https://github.com/frankYanez/Poky.git
+cd Poky
+
+# Instalar dependencias
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Variables de Entorno
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Crear un archivo `.env.local` en la raíz del proyecto:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+NEXT_PUBLIC_PARA_API_KEY=tu_api_key_de_para
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=tu_project_id_de_walletconnect
+```
 
-## Learn More
+## Scripts
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev      # Servidor de desarrollo (Turbopack)
+npm run build    # Build de producción
+npm run start    # Iniciar servidor de producción
+npm run lint     # Ejecutar ESLint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Estructura del Proyecto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app/
+├── (public)/           # Rutas públicas (landing page)
+├── (protected)/        # Rutas protegidas (dashboard)
+├── providers.tsx       # Providers raíz (Para, Query, EVM)
+└── layout.tsx          # Layout raíz
 
-## Deploy on Vercel
+src/
+├── core/               # Estilos globales
+├── features/           # Módulos de features
+│   ├── autentication/  # Autenticación
+│   │   ├── components/ # AuthGuard, AuthModal
+│   │   └── store/      # Zustand auth store
+│   ├── home/           # Componentes del dashboard
+│   └── landing/        # Componentes de landing
+└── shared/             # Componentes y utilidades compartidas
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Arquitectura
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Jerarquía de Providers
+
+```
+QueryClientProvider → ParaProvider → ParaEvmProvider → App
+```
+
+### Flujo de Autenticación
+
+1. `ParaProvider` gestiona la conexión con Para SDK
+2. `AuthModal` lanza el modal de Para para login (email, teléfono, wallets externas)
+3. `AuthGuard` sincroniza el estado de Para con Zustand y protege rutas
+4. `useAuthStore` provee el estado de autenticación a toda la app
+
+### Wallets Soportadas
+
+- MetaMask
+- WalletConnect
+
+### Chains Soportadas
+
+- Ethereum Mainnet
+- Sepolia (testnet)
+- Polygon
+- Arbitrum
+- Base
+- Optimism
+
+## Licencia
+
+MIT
