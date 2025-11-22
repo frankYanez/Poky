@@ -4,7 +4,6 @@ import Image from "next/image";
 import type { CSSProperties, ReactNode, RefObject, FC } from "react";
 import { gsap } from "gsap";
 import "./MagicBento.css";
-import { Container } from "lucide-react";
 import ContainerContent from "@/src/shared/components/ContainerContent";
 import ContainerSection from "@/src/shared/components/ContainerSection";
 
@@ -22,6 +21,7 @@ interface CardDataItem {
   label: string;
   logoSrc?: string;
   logoAlt?: string;
+  sizeLogo?: string;
 }
 
 interface ParticleCardProps {
@@ -74,6 +74,7 @@ const cardData: CardDataItem[] = [
     logoSrc:
       "/assets/glass-coins-financial-exchange-pink-yellow-gradient (1).png",
     logoAlt: "Analytics logo",
+    sizeLogo: "h-10 w-10",
   },
   {
     color: "transparent",
@@ -82,38 +83,44 @@ const cardData: CardDataItem[] = [
     label: "Overview",
     logoSrc: "/assets/glass-pie-chart.png",
     logoAlt: "Dashboard logo",
+    sizeLogo: "h-10 w-10",
   },
   {
     color: "transparent",
     title: "Collaboration",
     description: "Work together seamlessly",
     label: "Teamwork",
-    logoSrc: "/assets/logos/collaboration.svg",
+    logoSrc:
+      "/assets/thumbs-up-icon-glossy-glass-render-pink-yellow-gradient.png",
     logoAlt: "Collaboration logo",
+    sizeLogo: "h-40 w-40",
   },
   {
     color: "transparent",
     title: "Automation",
     description: "Streamline workflows",
     label: "Efficiency",
-    logoSrc: "/assets/logos/automation.svg",
+    logoSrc: "/assets/glass-rocket-1.png",
     logoAlt: "Automation logo",
+    sizeLogo: "h-40 w-40",
   },
   {
     color: "transparent",
     title: "Integration",
     description: "Connect favorite tools",
     label: "Connectivity",
-    logoSrc: "/assets/logos/integration.svg",
+    logoSrc: "/assets/glass-earth-globe.png",
     logoAlt: "Integration logo",
+    sizeLogo: "h-10 w-10",
   },
   {
     color: "transparent",
     title: "Security",
     description: "Enterprise-grade protection",
     label: "Protection",
-    logoSrc: "/assets/logos/security.svg",
+    logoSrc: "/assets/glass-check-mark.png",
     logoAlt: "Security logo",
+    sizeLogo: "h-10 w-10",
   },
 ];
 
@@ -142,8 +149,8 @@ const createParticleElement = (
 const calculateSpotlightValues = (
   radius: number
 ): { proximity: number; fadeDistance: number } => ({
-  proximity: radius * 0.5,
-  fadeDistance: radius * 0.75,
+  proximity: radius * 0.1,
+  fadeDistance: radius * 0.15,
 });
 
 const updateCardGlowProperties = (
@@ -499,7 +506,7 @@ const GlobalSpotlight: FC<GlobalSpotlightProps> = ({
 
         let glowIntensity = 0;
         if (effectiveDistance <= proximity) {
-          glowIntensity = 1;
+          glowIntensity = 0.5;
         } else if (effectiveDistance <= fadeDistance) {
           glowIntensity =
             (fadeDistance - effectiveDistance) / (fadeDistance - proximity);
@@ -637,9 +644,9 @@ const MagicBento: FC<MagicBentoProps> = ({
                   <Image
                     src={card.logoSrc}
                     alt={card.logoAlt ?? card.label}
-                    width={40}
-                    height={40}
-                    className="h-10 w-10 object-contain"
+                    width={60}
+                    height={60}
+                    className={`object-contain ${card.sizeLogo ?? "h-10 w-10"}`}
                   />
                 ) : (
                   <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center text-sm font-semibold">
