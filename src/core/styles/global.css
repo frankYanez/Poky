@@ -132,3 +132,58 @@ body {
 @utility animate-glow-pulse {
   animation: glow-pulse 2s ease-in-out infinite;
 }
+
+/* ========================================
+   Para Modal Override Styles
+   ======================================== */
+
+/* Overlay del modal de Para - fondo oscuro con blur */
+[data-para-modal-overlay],
+.para-modal-overlay,
+div[class*="ModalOverlay"],
+div[class*="modal-overlay"] {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Container del modal de Para - centrado */
+[data-para-modal],
+.para-modal,
+div[class*="ModalContainer"],
+div[class*="modal-container"],
+div[class*="AuthModal"] {
+  position: relative !important;
+  margin: auto !important;
+  transform: none !important;
+  top: unset !important;
+  left: unset !important;
+  right: unset !important;
+  bottom: unset !important;
+}
+
+/* Asegurar que el contenedor principal del modal esté centrado */
+cpsl-modal-v2,
+cpsl-auth-modal {
+  --cpsl-modal-position: fixed !important;
+  --cpsl-modal-inset: 0 !important;
+}
+
+cpsl-modal-v2::part(overlay),
+cpsl-auth-modal::part(overlay) {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+cpsl-modal-v2::part(container),
+cpsl-auth-modal::part(container) {
+  position: relative !important;
+  margin: auto !important;
+}
