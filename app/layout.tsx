@@ -4,6 +4,7 @@ import { Providers } from "./providers";
 import { ReactNode } from "react";
 import "@/src/core/styles/global.css";
 import ColorBends from "@/src/landing/components/ColorBends/ColorBends";
+import Footer from "@/src/features/landing/components/Footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,6 +76,7 @@ export default function RootLayout({
       >
         <AppBackground />
         <Providers>{children}</Providers>
+        <Footer />
       </body>
     </html>
   );

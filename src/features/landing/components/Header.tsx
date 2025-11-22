@@ -24,11 +24,6 @@ export default function Header() {
             </a>
 
             {/* Desktop links */}
-            <div className="hidden items-center gap-2 md:flex">
-              <div className="relative">
-                <AuthModal />
-              </div>
-            </div>
           </nav>
         </ContainerContent>
       </header>
