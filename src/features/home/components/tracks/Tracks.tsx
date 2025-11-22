@@ -17,15 +17,15 @@ export function Tracks() {
     <ContainerSection id="tracks" padding="none" minHeight="screen">
       <ContainerContent maxWidth="compact" className="py-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 mt-10">
           {/* Badge Icon */}
           <div className="relative inline-flex items-center justify-center w-20 h-20 mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-violet-500/30 to-violet-300/20 rounded-full blur-xl animate-glow-pulse" />
             <Image
               src="/assets/glass-pie-chart.png"
               alt="Learning tracks"
-              width={64}
-              height={64}
+              width={364}
+              height={364}
               className="relative z-10 drop-shadow-2xl"
             />
           </div>
