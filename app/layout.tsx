@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import type { ReactNode } from "react";
-import "./globals.css";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Providers } from "./providers";
+import { ReactNode } from "react";
 
-const inter = Inter({
-  variable: "--font-sans",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Poky UI",
-  description: "Glass pastel UI with radial gradients",
+  title: "Poky",
+  description: "Your Web3 Wallet Experience",
 };
 
 function AppBackground() {
@@ -35,10 +39,11 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} antialiased`}>
-        <AppBackground />
-        <div className="relative min-h-screen">{children}</div>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
