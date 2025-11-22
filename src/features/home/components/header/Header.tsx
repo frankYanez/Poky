@@ -8,6 +8,7 @@ import { button } from "@/src/shared/lib/cva/button";
 import { useAuthStore } from "@/src/features/autentication/store/authStore";
 import { useLogout } from "@getpara/react-sdk";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Header() {
   const [showLogout, setShowLogout] = useState(false);
@@ -45,7 +46,6 @@ export default function Header() {
   const links = [
     { label: "Mis tracks", href: "#", icon: ListMusic },
     { label: "Tracks", href: "#tracks", icon: Disc3 },
-    { label: "Info", href: "#", icon: Info },
   ];
 
   return (
@@ -53,22 +53,26 @@ export default function Header() {
       {/* HEADER */}
       <header
         className={cn(
-          "fixed top-0 left-0 z-50 w-full border-b transition-all duration-300",
+          "fixed top-0 left-0 z-40 w-full border-b transition-all duration-300",
           scrolled
-            ? "bg-dark-900/90 backdrop-blur-xl border-dark-700/50 shadow-soft"
+            ? "bg-dark-900/90 backdrop-blur2xl border-dark-700/10 shadow-soft"
             : "bg-transparent border-transparent"
         )}
       >
         <ContainerContent maxWidth="compact">
           <nav className="flex w-full items-center justify-between py-4">
             {/* Logo */}
-            <a href="#" className="flex items-center gap-2 group">
-              <div className="relative">
-                <div className="absolute inset-0 bg-violet-500/30 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative text-2xl font-bold bg-gradient-to-r from-violet-400 to-violet-300 bg-clip-text text-transparent">
-                  POKY
-                </span>
-              </div>
+            <a
+              href="#"
+              className="text-2xl font-bold text-white flex flex-row items-center gap-2"
+            >
+              <Image
+                src="/assets/logo-poky-grade.png"
+                alt="Poky Logo"
+                width={48}
+                height={48}
+              />
+              <p>POKY</p>
             </a>
 
             {/* Desktop links */}
