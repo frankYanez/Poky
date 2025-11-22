@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+import { Container } from "lucide-react";
+import ContainerSection from "@/src/shared/components/ContainerSection";
+import ContainerContent from "@/src/shared/components/ContainerContent";
 
 const problems = [
   {
@@ -29,13 +32,9 @@ const problems = [
 
 export function ProblemSection() {
   return (
-    <section
-      id="problema"
-      aria-labelledby="problema-heading"
-      className="relative overflow-hidden px-6 py-24 sm:px-10 lg:px-12"
-    >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(255,216,107,0.12),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(122,184,255,0.14),transparent_45%)]" />
-      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12">
+    <ContainerSection>
+      <div className="pointer-events-none absolute inset-0 " />
+      <ContainerContent maxWidth="compact">
         <div className="flex flex-col gap-4 text-white">
           <p className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
             <span className="text-lg">2️⃣</span> El problema
@@ -47,9 +46,9 @@ export function ProblemSection() {
             Página 2 · Problemas de certificación
           </h2>
           <p className="max-w-3xl text-lg text-white/75">
-            El mundo educativo se ahoga en procesos manuales. Poky documenta el dolor
-            para que los comités directivos entiendan por qué la autenticación
-            descentralizada es urgente.
+            El mundo educativo se ahoga en procesos manuales. Poky documenta el
+            dolor para que los comités directivos entiendan por qué la
+            autenticación descentralizada es urgente.
           </p>
         </div>
 
@@ -68,7 +67,10 @@ export function ProblemSection() {
                 <div
                   className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${problem.accent} opacity-0 transition duration-300 group-hover:opacity-100`}
                 />
-                <div className="relative flex flex-col gap-4" style={{ transform: "translateZ(15px)" }}>
+                <div
+                  className="relative flex flex-col gap-4"
+                  style={{ transform: "translateZ(15px)" }}
+                >
                   <div className="relative inline-flex size-16 items-center justify-center rounded-2xl border border-white/15 bg-white/10 shadow-glow">
                     <div
                       className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${problem.accent} opacity-70 blur-lg`}
@@ -82,13 +84,15 @@ export function ProblemSection() {
                     />
                   </div>
                   <h3 className="text-xl font-semibold">{problem.title}</h3>
-                  <p className="text-base text-white/80">{problem.description}</p>
+                  <p className="text-base text-white/80">
+                    {problem.description}
+                  </p>
                 </div>
               </motion.article>
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </ContainerContent>
+    </ContainerSection>
   );
 }

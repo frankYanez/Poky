@@ -1,12 +1,16 @@
 "use client";
 import { useRef, useEffect, useCallback, useState } from "react";
+import Image from "next/image";
 import type { CSSProperties, ReactNode, RefObject, FC } from "react";
 import { gsap } from "gsap";
 import "./MagicBento.css";
+import { Container } from "lucide-react";
+import ContainerContent from "@/src/shared/components/ContainerContent";
+import ContainerSection from "@/src/shared/components/ContainerSection";
 
-const DEFAULT_PARTICLE_COUNT = 12;
+const DEFAULT_PARTICLE_COUNT = 102;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
-const DEFAULT_GLOW_COLOR = "132, 0, 255";
+const DEFAULT_GLOW_COLOR = "12, 120, 55";
 const MOBILE_BREAKPOINT = 768;
 
 // --- Types / Interfaces -------------------------------------------------
@@ -16,6 +20,8 @@ interface CardDataItem {
   title: string;
   description: string;
   label: string;
+  logoSrc?: string;
+  logoAlt?: string;
 }
 
 interface ParticleCardProps {
@@ -61,40 +67,53 @@ interface MagicBentoProps {
 
 const cardData: CardDataItem[] = [
   {
-    color: "#060010",
+    color: "transparent",
     title: "Analytics",
     description: "Track user behavior",
     label: "Insights",
+    logoSrc:
+      "/assets/glass-coins-financial-exchange-pink-yellow-gradient (1).png",
+    logoAlt: "Analytics logo",
   },
   {
-    color: "#060010",
+    color: "transparent",
     title: "Dashboard",
     description: "Centralized data view",
     label: "Overview",
+    logoSrc: "/assets/glass-pie-chart.png",
+    logoAlt: "Dashboard logo",
   },
   {
-    color: "#060010",
+    color: "transparent",
     title: "Collaboration",
     description: "Work together seamlessly",
     label: "Teamwork",
+    logoSrc: "/assets/logos/collaboration.svg",
+    logoAlt: "Collaboration logo",
   },
   {
-    color: "#060010",
+    color: "transparent",
     title: "Automation",
     description: "Streamline workflows",
     label: "Efficiency",
+    logoSrc: "/assets/logos/automation.svg",
+    logoAlt: "Automation logo",
   },
   {
-    color: "#060010",
+    color: "transparent",
     title: "Integration",
     description: "Connect favorite tools",
     label: "Connectivity",
+    logoSrc: "/assets/logos/integration.svg",
+    logoAlt: "Integration logo",
   },
   {
-    color: "#060010",
+    color: "transparent",
     title: "Security",
     description: "Enterprise-grade protection",
     label: "Protection",
+    logoSrc: "/assets/logos/security.svg",
+    logoAlt: "Security logo",
   },
 ];
 
@@ -545,7 +564,10 @@ const GlobalSpotlight: FC<GlobalSpotlightProps> = ({
 };
 
 const BentoCardGrid: FC<BentoCardGridProps> = ({ children, gridRef }) => (
-  <div className="card-grid bento-section" ref={gridRef}>
+  <div
+    className="card-grid bento-section w-full grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
+    ref={gridRef}
+  >
     {children}
   </div>
 );
@@ -584,181 +606,209 @@ const MagicBento: FC<MagicBentoProps> = ({
   const shouldDisableAnimations = disableAnimations || isMobile;
 
   return (
-    <>
-      {enableSpotlight && (
-        <GlobalSpotlight
-          gridRef={gridRef}
-          disableAnimations={shouldDisableAnimations}
-          enabled={enableSpotlight}
-          spotlightRadius={spotlightRadius}
-          glowColor={glowColor}
-        />
-      )}
+    <ContainerSection>
+      <ContainerContent maxWidth="compact">
+        <div className="mx-auto w-full max-w-5xl">
+          {enableSpotlight && (
+            <GlobalSpotlight
+              gridRef={gridRef}
+              disableAnimations={shouldDisableAnimations}
+              enabled={enableSpotlight}
+              spotlightRadius={spotlightRadius}
+              glowColor={glowColor}
+            />
+          )}
 
-      <BentoCardGrid gridRef={gridRef}>
-        {cardData.map((card, index) => {
-          const baseClassName = `magic-bento-card ${
-            textAutoHide ? "magic-bento-card--text-autohide" : ""
-          } ${enableBorderGlow ? "magic-bento-card--border-glow" : ""}`;
-          const cardProps = {
-            className: baseClassName,
-            style: {
-              backgroundColor: card.color,
-              "--glow-color": glowColor,
-            },
-          };
+          <BentoCardGrid gridRef={gridRef}>
+            {cardData.map((card, index) => {
+              const baseClassName = `magic-bento-card p-6 flex flex-col items-center text-center ${
+                textAutoHide ? "magic-bento-card--text-autohide" : ""
+              } ${enableBorderGlow ? "magic-bento-card--border-glow" : ""}`;
+              const cardProps = {
+                className: baseClassName,
+                style: {
+                  backgroundColor: card.color,
+                  "--glow-color": glowColor,
+                } as React.CSSProperties,
+              };
 
-          if (enableStars) {
-            return (
-              <ParticleCard
-                key={index}
-                {...cardProps}
-                disableAnimations={shouldDisableAnimations}
-                particleCount={particleCount}
-                glowColor={glowColor}
-                enableTilt={enableTilt}
-                clickEffect={clickEffect}
-                enableMagnetism={enableMagnetism}
-              >
-                <div className="magic-bento-card__header">
-                  <div className="magic-bento-card__label">{card.label}</div>
+              const Logo = () =>
+                card.logoSrc ? (
+                  <Image
+                    src={card.logoSrc}
+                    alt={card.logoAlt ?? card.label}
+                    width={40}
+                    height={40}
+                    className="h-10 w-10 object-contain"
+                  />
+                ) : (
+                  <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center text-sm font-semibold">
+                    {card.label?.charAt(0) ?? "?"}
+                  </div>
+                );
+
+              if (enableStars) {
+                return (
+                  <ParticleCard
+                    key={index}
+                    {...cardProps}
+                    disableAnimations={shouldDisableAnimations}
+                    particleCount={particleCount}
+                    glowColor={glowColor}
+                    enableTilt={enableTilt}
+                    clickEffect={clickEffect}
+                    enableMagnetism={enableMagnetism}
+                  >
+                    <div className="magic-bento-card__header flex flex-col items-center gap-3">
+                      <Logo />
+                      <div className="magic-bento-card__label text-xs uppercase tracking-[0.25em] text-(--color-accent)">
+                        {card.label}
+                      </div>
+                    </div>
+                    <div className="magic-bento-card__content mt-3">
+                      <h2 className="magic-bento-card__title text-lg font-semibold">
+                        {card.title}
+                      </h2>
+                      <p className="magic-bento-card__description text-sm text-(--color-muted)">
+                        {card.description}
+                      </p>
+                    </div>
+                  </ParticleCard>
+                );
+              }
+
+              return (
+                <div
+                  key={index}
+                  {...cardProps}
+                  ref={(el: HTMLDivElement | null) => {
+                    if (!el) return;
+
+                    const handleMouseMove = (e: MouseEvent) => {
+                      if (shouldDisableAnimations) return;
+
+                      const rect = el.getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
+                      const centerX = rect.width / 2;
+                      const centerY = rect.height / 2;
+
+                      if (enableTilt) {
+                        const rotateX = ((y - centerY) / centerY) * -10;
+                        const rotateY = ((x - centerX) / centerX) * 10;
+                        gsap.to(el, {
+                          rotateX,
+                          rotateY,
+                          duration: 0.1,
+                          ease: "power2.out",
+                          transformPerspective: 1000,
+                        });
+                      }
+
+                      if (enableMagnetism) {
+                        const magnetX = (x - centerX) * 0.05;
+                        const magnetY = (y - centerY) * 0.05;
+                        gsap.to(el, {
+                          x: magnetX,
+                          y: magnetY,
+                          duration: 0.3,
+                          ease: "power2.out",
+                        });
+                      }
+                    };
+
+                    const handleMouseLeave = () => {
+                      if (shouldDisableAnimations) return;
+
+                      if (enableTilt) {
+                        gsap.to(el, {
+                          rotateX: 0,
+                          rotateY: 0,
+                          duration: 0.3,
+                          ease: "power2.out",
+                        });
+                      }
+
+                      if (enableMagnetism) {
+                        gsap.to(el, {
+                          x: 0,
+                          y: 0,
+                          duration: 0.3,
+                          ease: "power2.out",
+                        });
+                      }
+                    };
+
+                    const handleClick = (e: MouseEvent) => {
+                      if (!clickEffect || shouldDisableAnimations) return;
+
+                      const rect = el.getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
+
+                      const maxDistance = Math.max(
+                        Math.hypot(x, y),
+                        Math.hypot(x - rect.width, y),
+                        Math.hypot(x, y - rect.height),
+                        Math.hypot(x - rect.width, y - rect.height)
+                      );
+
+                      const ripple = document.createElement("div");
+                      ripple.style.cssText = `
+                        position: absolute;
+                        width: ${maxDistance * 2}px;
+                        height: ${maxDistance * 2}px;
+                        border-radius: 50%;
+                        left: ${x - maxDistance}px;
+                        top: ${y - maxDistance}px;
+                        pointer-events: none;
+                        z-index: 1000;
+                      `;
+
+                      el.appendChild(ripple);
+
+                      gsap.fromTo(
+                        ripple,
+                        {
+                          scale: 0,
+                          opacity: 1,
+                        },
+                        {
+                          scale: 1,
+                          opacity: 0,
+                          duration: 0.8,
+                          ease: "power2.out",
+                          onComplete: () => ripple.remove(),
+                        }
+                      );
+                    };
+
+                    el.addEventListener("mousemove", handleMouseMove);
+                    el.addEventListener("mouseleave", handleMouseLeave);
+                    el.addEventListener("click", handleClick);
+                  }}
+                >
+                  <div className="magic-bento-card__header flex flex-col items-center gap-3">
+                    <Logo />
+                    <div className="magic-bento-card__label text-xs uppercase tracking-[0.25em] text-(--color-accent)">
+                      {card.label}
+                    </div>
+                  </div>
+                  <div className="magic-bento-card__content mt-3">
+                    <h2 className="magic-bento-card__title text-lg font-semibold">
+                      {card.title}
+                    </h2>
+                    <p className="magic-bento-card__description text-sm text-(--color-muted)">
+                      {card.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="magic-bento-card__content">
-                  <h2 className="magic-bento-card__title">{card.title}</h2>
-                  <p className="magic-bento-card__description">
-                    {card.description}
-                  </p>
-                </div>
-              </ParticleCard>
-            );
-          }
-
-          return (
-            <div
-              key={index}
-              {...cardProps}
-              ref={(el: HTMLDivElement | null) => {
-                if (!el) return;
-
-                const handleMouseMove = (e: MouseEvent) => {
-                  if (shouldDisableAnimations) return;
-
-                  const rect = el.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  const centerX = rect.width / 2;
-                  const centerY = rect.height / 2;
-
-                  if (enableTilt) {
-                    const rotateX = ((y - centerY) / centerY) * -10;
-                    const rotateY = ((x - centerX) / centerX) * 10;
-                    gsap.to(el, {
-                      rotateX,
-                      rotateY,
-                      duration: 0.1,
-                      ease: "power2.out",
-                      transformPerspective: 1000,
-                    });
-                  }
-
-                  if (enableMagnetism) {
-                    const magnetX = (x - centerX) * 0.05;
-                    const magnetY = (y - centerY) * 0.05;
-                    gsap.to(el, {
-                      x: magnetX,
-                      y: magnetY,
-                      duration: 0.3,
-                      ease: "power2.out",
-                    });
-                  }
-                };
-
-                const handleMouseLeave = () => {
-                  if (shouldDisableAnimations) return;
-
-                  if (enableTilt) {
-                    gsap.to(el, {
-                      rotateX: 0,
-                      rotateY: 0,
-                      duration: 0.3,
-                      ease: "power2.out",
-                    });
-                  }
-
-                  if (enableMagnetism) {
-                    gsap.to(el, {
-                      x: 0,
-                      y: 0,
-                      duration: 0.3,
-                      ease: "power2.out",
-                    });
-                  }
-                };
-
-                const handleClick = (e: MouseEvent) => {
-                  if (!clickEffect || shouldDisableAnimations) return;
-
-                  const rect = el.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-
-                  const maxDistance = Math.max(
-                    Math.hypot(x, y),
-                    Math.hypot(x - rect.width, y),
-                    Math.hypot(x, y - rect.height),
-                    Math.hypot(x - rect.width, y - rect.height)
-                  );
-
-                  const ripple = document.createElement("div");
-                  ripple.style.cssText = `
-                    position: absolute;
-                    width: ${maxDistance * 2}px;
-                    height: ${maxDistance * 2}px;
-                    border-radius: 50%;
-                    background: radial-gradient(circle, rgba(${glowColor}, 0.4) 0%, rgba(${glowColor}, 0.2) 30%, transparent 70%);
-                    left: ${x - maxDistance}px;
-                    top: ${y - maxDistance}px;
-                    pointer-events: none;
-                    z-index: 1000;
-                  `;
-
-                  el.appendChild(ripple);
-
-                  gsap.fromTo(
-                    ripple,
-                    {
-                      scale: 0,
-                      opacity: 1,
-                    },
-                    {
-                      scale: 1,
-                      opacity: 0,
-                      duration: 0.8,
-                      ease: "power2.out",
-                      onComplete: () => ripple.remove(),
-                    }
-                  );
-                };
-
-                el.addEventListener("mousemove", handleMouseMove);
-                el.addEventListener("mouseleave", handleMouseLeave);
-                el.addEventListener("click", handleClick);
-              }}
-            >
-              <div className="magic-bento-card__header">
-                <div className="magic-bento-card__label">{card.label}</div>
-              </div>
-              <div className="magic-bento-card__content">
-                <h2 className="magic-bento-card__title">{card.title}</h2>
-                <p className="magic-bento-card__description">
-                  {card.description}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </BentoCardGrid>
-    </>
+              );
+            })}
+          </BentoCardGrid>
+        </div>
+      </ContainerContent>
+    </ContainerSection>
   );
 };
 

@@ -26,7 +26,7 @@ export const containerContent = cva(
       maxWidth: {
         default: "max-w-6xl 2xl:max-w-7xl",
         wide: "max-w-7xl 2xl:max-w-8xl",
-        compact: "max-w-4xl",
+        compact: "max-w-5xl",
         full: "w-full max-w-none",
       },
     },

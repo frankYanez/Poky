@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight, Play } from "lucide-react";
+import ContainerSection from "@/src/shared/components/ContainerSection";
+import ContainerContent from "@/src/shared/components/ContainerContent";
 
 const heroHighlights = [
   "Interfaces generativas entrenadas en tus datos privados",
@@ -17,24 +19,19 @@ const heroStats = [
   { label: "CSAT", value: "4.97/5" },
 ];
 
-const heroHeading =
-  "Construimos experiencias de IA con estética de vidrio inteligente";
+const heroHeading = "Construimos experiencias de IA ";
 
 const heroLead =
   "Poky combina diseño sensorial, infraestructura de datos y copilotos autónomos para que tu producto destaque en rendimiento, accesibilidad y velocidad de lanzamiento.";
 
 export function Hero() {
   return (
-    <section
-      id="inicio"
-      aria-labelledby="hero-heading"
-      className="container flex flex-col gap-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between"
-    >
-      <GridOrnaments />
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-16 lg:flex-row lg:items-center">
+    <ContainerSection>
+      <ContainerContent
+        maxWidth="compact"
+        className="relative flex flex-col sm:flex-row gap-4 items-center pt-32 sm:pt-0 justify-center max-h-screen"
+      >
         <div className="relative flex w-full flex-col gap-8 lg:w-1/2">
-          <BrandMark />
-
           <h1
             id="hero-heading"
             className="text-balance text-4xl font-semibold leading-tight tracking-tight text-white drop-shadow-lg sm:text-5xl lg:text-6xl"
@@ -64,7 +61,7 @@ export function Hero() {
           >
             {heroLead}
           </motion.p>
-
+          {/* 
           <motion.ul
             className="space-y-3 text-base text-white/80"
             initial={{ opacity: 0, y: 20 }}
@@ -79,27 +76,7 @@ export function Hero() {
             ))}
           </motion.ul>
 
-          <motion.div
-            className="flex flex-wrap gap-4"
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.5 }}
-          >
-            <Link
-              href="#agenda"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary to-accentPink px-8 py-3 text-base font-semibold text-white shadow-glow transition hover:scale-[1.01]"
-            >
-              Agenda una demo
-              <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <button className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-base font-semibold text-white/90 backdrop-blur transition hover:border-white/70 hover:bg-white/10">
-              <span className="flex size-9 items-center justify-center rounded-full bg-white/15 text-white">
-                <Play className="size-4" />
-              </span>
-              Ver lanzamiento guiado
-            </button>
-          </motion.div>
-
+          
           <motion.dl
             className="grid grid-cols-1 gap-4 border-t border-white/10 pt-8 sm:grid-cols-3"
             initial={{ opacity: 0, y: 30 }}
@@ -115,6 +92,30 @@ export function Hero() {
               </div>
             ))}
           </motion.dl>
+           */}
+
+          <motion.div
+            className="flex flex-wrap gap-4"
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.5 }}
+          >
+            {/* CTA Buttons 
+            <Link
+              href="#agenda"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary to-accentPink px-8 py-3 text-base font-semibold text-white shadow-glow transition hover:scale-[1.01]"
+            >
+              Agenda una demo
+              <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
+            </Link>
+          */}
+            <button className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-base font-semibold text-white/90 backdrop-blur transition hover:border-white/70 hover:bg-white/10">
+              <span className="flex size-9 items-center justify-center rounded-full bg-white/15 text-white">
+                <Play className="size-4" />
+              </span>
+              Ver lanzamiento guiado
+            </button>
+          </motion.div>
         </div>
 
         <div className="relative w-full lg:w-1/2">
@@ -129,7 +130,7 @@ export function Hero() {
 
             <div className="relative rounded-2xl border border-white/10 bg-black/20 p-4">
               <Image
-                src="/assets/glass-pie-chart.png"
+                src="/assets/logo-poky-front.png"
                 alt="Tablero táctil con visualizaciones de datos y fragmentos de UI de Poky"
                 width={860}
                 height={860}
@@ -139,7 +140,7 @@ export function Hero() {
             </div>
 
             <motion.div
-              className="absolute -right-6 bottom-8 w-48 rounded-2xl border border-white/15 bg-white/10 p-4 text-sm text-white/90 backdrop-blur"
+              className="absolute -right-6 bottom-8 w-48 rounded-2xl border border-white/15 bg-black/80 p-4 text-sm text-white/90 backdrop-blur"
               initial={{ opacity: 0, y: 20, x: 20 }}
               animate={{ opacity: 1, y: 0, x: 0 }}
               transition={{ delay: 1.2, duration: 0.5 }}
@@ -157,8 +158,8 @@ export function Hero() {
             </motion.div>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </ContainerContent>
+    </ContainerSection>
   );
 }
 
