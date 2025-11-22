@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 function AppBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_-5%,#b07cf_0%,#1b1238_48%,#0a0f21_76%,#070b15_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_-5%,#b07cff_0%,#1b1238_48%,#0a0f21_76%,#070b15_100%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_60%_65%,rgba(0,195,255,0.18),transparent_60%),radial-gradient(90%_70%_at_40%_90%,rgba(255,112,196,0.12),transparent_55%)] blur-[2px] opacity-90" />
       <div className="absolute inset-0 opacity-50 mix-blend-screen bg-radial-multi blur-xl" />
       <div className="absolute inset-0 opacity-70 mix-blend-lighten bg-radial-spot-1 blur-3xl" />
