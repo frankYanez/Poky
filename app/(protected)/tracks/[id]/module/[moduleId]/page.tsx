@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowLeft, CheckCircle2, Trophy } from "lucide-react";
+import { ArrowLeft, Trophy } from "lucide-react";
 import { AuthGuard } from "@/src/features/autentication/components/AuthGuard";
 import Header from "@/src/features/home/components/header/Header";
 import ContainerSection from "@/src/shared/components/ContainerSection";
@@ -13,7 +13,6 @@ import { SelectionStep } from "@/src/features/module/components/SelectionStep";
 import { useModuleProgressStore } from "@/src/features/module/store/moduleProgressStore";
 import { getModuleContent } from "@/src/features/module/data/moduleLoader";
 import type { Subsection, ModuleContent } from "@/src/features/module/types/moduleContent";
-import { cn } from "@/src/shared/lib/cn/utils";
 
 export default function ModulePage() {
   const params = useParams();
@@ -32,13 +31,10 @@ export default function ModulePage() {
     prevStep,
     recordAnswer,
     completeModule,
-    getProgress,
     getCurrentGlobalIndex,
     getTotalSteps,
-    isStepCompleted,
   } = useModuleProgressStore();
 
-  // Cargar contenido del módulo
   useEffect(() => {
     const moduleContent = getModuleContent(moduleId);
     if (moduleContent) {
@@ -53,7 +49,7 @@ export default function ModulePage() {
         <Header />
         <ContainerSection padding="md" minHeight="screen">
           <ContainerContent maxWidth="compact" className="flex items-center justify-center">
-            <p className="text-dark-300">Cargando módulo...</p>
+            <p className="text-dark-300">Cargando...</p>
           </ContainerContent>
         </ContainerSection>
       </AuthGuard>
@@ -62,7 +58,6 @@ export default function ModulePage() {
 
   const currentSection = content.sections[currentSectionIndex];
   const currentSubsection = currentSection?.subsections[currentStepIndex];
-  const progress = getProgress(content);
   const globalIndex = getCurrentGlobalIndex(content);
   const totalSteps = getTotalSteps(content);
 
@@ -113,45 +108,38 @@ export default function ModulePage() {
     }
   };
 
-  // Pantalla de completado
   if (isCompleted) {
     return (
       <AuthGuard requireAuth={true} redirectTo="/">
         <Header />
-        <ContainerSection padding="md" minHeight="screen" className="flex items-center">
-          <ContainerContent maxWidth="compact">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center"
-            >
-              <div className="relative inline-flex items-center justify-center w-32 h-32 mb-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-gold-500/30 to-gold-400/20 rounded-full blur-2xl animate-glow-pulse" />
-                <div className="relative glass-card rounded-full p-6">
-                  <Trophy className="size-16 text-gold-400" />
+        <ContainerSection padding="md" minHeight="screen">
+          <ContainerContent maxWidth="full" className="pt-20 flex justify-center">
+            <div className="w-full max-w-lg px-4 sm:px-0">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center"
+              >
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gold-500/10 mb-6">
+                  <Trophy className="size-10 text-gold-400" />
                 </div>
-              </div>
 
-              <h1 className="text-3xl font-bold text-dark-100 mb-4">
-                ¡Módulo Completado!
-              </h1>
+                <h1 className="text-2xl font-bold text-dark-100 mb-3">
+                  Modulo completado
+                </h1>
 
-              <p className="text-dark-300 mb-8 max-w-md mx-auto">
-                Has completado exitosamente el módulo "{content.title}".
-                Tu conocimiento está listo para ser verificado on-chain.
-              </p>
+                <p className="text-dark-400 mb-8">
+                  Completaste "{content.title}". Tu progreso ha sido guardado.
+                </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <button
                   onClick={handleFinish}
-                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-violet-500 to-violet-400 text-white font-bold text-sm uppercase tracking-wider"
+                  className="px-6 py-3 rounded-xl bg-violet-500 text-white font-medium text-sm hover:bg-violet-600 transition-colors"
                 >
-                  Volver al Track
-                </motion.button>
-              </div>
-            </motion.div>
+                  Volver al track
+                </button>
+              </motion.div>
+            </div>
           </ContainerContent>
         </ContainerSection>
       </AuthGuard>
@@ -161,91 +149,47 @@ export default function ModulePage() {
   return (
     <AuthGuard requireAuth={true} redirectTo="/">
       <Header />
-      <ContainerSection padding="none" minHeight="screen" className="flex flex-col">
-        {/* Progress Header */}
-        <div className="sticky top-[72px] z-30 bg-dark-900/95 backdrop-blur-xl border-b border-dark-700/50">
-          <ContainerContent maxWidth="compact" className="py-4">
-            <div className="flex items-center justify-between mb-3">
+      <ContainerSection padding="md" minHeight="screen">
+        <ContainerContent maxWidth="full" className="pt-6 pb-8 flex justify-center">
+          <div className="w-full max-w-lg px-4 sm:px-0">
+            {/* Top bar */}
+            <div className="flex items-center justify-between mb-8">
               <button
                 onClick={handleBack}
-                className="inline-flex items-center gap-2 text-dark-300 hover:text-dark-100 transition-colors"
+                className="inline-flex items-center gap-2 text-dark-400 hover:text-dark-200 transition-colors"
               >
                 <ArrowLeft className="size-4" />
-                <span className="text-sm font-medium">Atrás</span>
+                <span className="text-sm">Atras</span>
               </button>
 
-              <div className="text-sm text-dark-400">
-                <span className="text-violet-400 font-semibold">{globalIndex + 1}</span>
-                <span> / {totalSteps}</span>
-              </div>
+              <span className="text-sm text-dark-500">
+                {globalIndex + 1} / {totalSteps}
+              </span>
             </div>
 
             {/* Progress bar */}
-            <div className="relative w-full h-2 bg-dark-700 rounded-full overflow-hidden">
+            <div className="w-full h-1 bg-dark-800 rounded-full mb-8 overflow-hidden">
               <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-violet-500 to-violet-400"
+                className="h-full bg-violet-500 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${((globalIndex + 1) / totalSteps) * 100}%` }}
                 transition={{ duration: 0.3 }}
               />
             </div>
 
-            {/* Section indicator */}
-            <div className="flex items-center justify-between mt-3">
-              <p className="text-xs text-dark-400">
-                Sección {currentSectionIndex + 1}: {currentSection.title}
-              </p>
-              <p className="text-xs text-dark-400">{progress}% completado</p>
-            </div>
-          </ContainerContent>
-        </div>
+            {/* Section title */}
+            <p className="text-xs text-dark-500 uppercase tracking-wide mb-6">
+              {currentSection.title}
+            </p>
 
-        {/* Section Navigation Pills */}
-        <div className="bg-dark-900/50 border-b border-dark-700/30">
-          <ContainerContent maxWidth="compact" className="py-3">
-            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-              {content.sections.map((section, sIndex) => {
-                const sectionCompleted = section.subsections.every((_, stepIdx) =>
-                  isStepCompleted(sIndex, stepIdx)
-                );
-                const isCurrent = sIndex === currentSectionIndex;
-
-                return (
-                  <div
-                    key={sIndex}
-                    className={cn(
-                      "flex-shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-all",
-                      isCurrent
-                        ? "bg-violet-500/20 text-violet-400 border border-violet-500/30"
-                        : sectionCompleted
-                          ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                          : "bg-dark-700/30 text-dark-400 border border-dark-600/30"
-                    )}
-                  >
-                    <div className="flex items-center gap-2">
-                      {sectionCompleted && <CheckCircle2 className="size-3" />}
-                      <span>{section.title}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </ContainerContent>
-        </div>
-
-        {/* Main Content */}
-        <div className="flex-1 overflow-hidden">
-          <ContainerContent maxWidth="compact" className="h-full py-6">
+            {/* Content */}
             <AnimatePresence mode="wait">
-              <motion.div
-                key={`${currentSectionIndex}-${currentStepIndex}`}
-                className="h-full"
-              >
+              <motion.div key={`${currentSectionIndex}-${currentStepIndex}`}>
                 {currentSubsection && renderSubsection(currentSubsection)}
               </motion.div>
             </AnimatePresence>
-          </ContainerContent>
-        </div>
+          </div>
+        </ContainerContent>
       </ContainerSection>
     </AuthGuard>
   );
