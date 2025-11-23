@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-export const containerSection = cva("relative w-full overflow-hidden", {
+export const containerSection = cva("relative w-full overflow-x-hidden", {
 	variants: {
 		padding: {
 			none: "",
