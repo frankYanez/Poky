@@ -5,6 +5,7 @@ export const button = cva(
 	{
 		variants: {
 			intent: {
+				primary: "bg-gradient-to-tr from-[#9d7bff] to-[#4bd2ff] text-zinc-800",
 				ghost: "bg-transparent text-white hover:bg-secondary/50",
 				white:
 					"border border-white/90 bg-white/90 text-black backdrop-blur-3xl hover:bg-white/90",
@@ -14,7 +15,7 @@ export const button = cva(
 			size: {
 				sm: "px-3 py-1.5 text-sm",
 				md: "px-4 py-2 text-base",
-				lg: "px-5 py-3 text-lg",
+				lg: "px-5 py-2 text-lg",
 			},
 			weight: {
 				sm: "font-extralight",

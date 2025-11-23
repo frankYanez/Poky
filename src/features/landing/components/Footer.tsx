@@ -3,12 +3,8 @@ import React, { useEffect, useRef } from "react";
 import type { FC } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
-
-const socials = [
-  { id: "twitter", href: "https://twitter.com/", label: "Twitter" },
-  { id: "github", href: "https://github.com/", label: "GitHub" },
-  { id: "dribbble", href: "https://dribbble.com/", label: "Dribbble" },
-];
+import ContainerContent from "@/src/shared/components/ContainerContent";
+import { FOOTER_DATA } from "../data/landingData";
 
 const Footer: FC = () => {
   const spotlightRef = useRef<HTMLDivElement | null>(null);
@@ -60,45 +56,39 @@ const Footer: FC = () => {
   return (
     <footer className="relative isolate overflow-hidden bg-linear-to-tr from-black/80 via-[#051018]/70 to-black/95 text-white">
       <div ref={spotlightRef} aria-hidden />
+      <ContainerContent maxWidth="compact" className="py-12 flex flex-col md:flex-row items-center justify-between gap-6">
 
-      <div className="mx-auto max-w-6xl px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <div className="rounded-full bg-white/5 p-2 flex items-center justify-center">
             <Image
               src="/assets/logo-poky-grade.png"
-              alt="Poky"
+              alt={FOOTER_DATA.brand.logoAlt}
               width={36}
               height={36}
             />
           </div>
           <div className="leading-tight">
-            <div className="text-lg font-semibold">Poky</div>
+            <div className="text-lg font-semibold">{FOOTER_DATA.brand.name}</div>
             <div className="text-sm text-(--color-muted)">
-              Modern, minimal interfaces
+              {FOOTER_DATA.brand.tagline}
             </div>
           </div>
         </div>
 
         <nav className="flex gap-6 text-sm">
-          <a
-            className="opacity-80 hover:opacity-100 transition"
-            href="#product"
-          >
-            Producto
-          </a>
-          <a
-            className="opacity-80 hover:opacity-100 transition"
-            href="#pricing"
-          >
-            Precios
-          </a>
-          <a className="opacity-80 hover:opacity-100 transition" href="#docs">
-            Docs
-          </a>
+          {FOOTER_DATA.navigation.map((item) => (
+            <a
+              key={item.href}
+              className="opacity-80 hover:opacity-100 transition"
+              href={item.href}
+            >
+              {item.label}
+            </a>
+          ))}
         </nav>
 
         <div className="flex items-center gap-3">
-          {socials.map((s) => (
+          {FOOTER_DATA.socials.map((s) => (
             <a
               key={s.id}
               href={s.href}
@@ -152,10 +142,10 @@ const Footer: FC = () => {
             </a>
           ))}
         </div>
-      </div>
+      </ContainerContent>
 
       <div className="border-t border-white/6 py-6 text-center text-sm text-(--color-muted)">
-        © {new Date().getFullYear()} Poky. Todos los derechos reservados.
+        © {new Date().getFullYear()} {FOOTER_DATA.copyright}
       </div>
     </footer>
   );

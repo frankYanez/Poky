@@ -70,6 +70,14 @@ export function Providers({
           env: PARA_ENV,
           apiKey: PARA_API_KEY,
         }}
+paraModalConfig={{
+  theme: {
+    mode: "dark",
+    foregroundColor: "#FFFFFF",
+    backgroundColor: "#1A1A1A",
+    accentColor: "#6366F1"
+  }
+}}
         externalWalletConfig={{
           wallets: [ExternalWallet.METAMASK, ExternalWallet.WALLETCONNECT],
         }}

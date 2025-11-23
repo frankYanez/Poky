@@ -42,7 +42,7 @@ export const Button: React.FC<ButtonProps> = ({
 				className={classes}
 				aria-disabled={disabled ? "true" : undefined}
 				onClick={onClick}
-				style={style}
+				style={style} 
 			>
 				{children}
 			</a>

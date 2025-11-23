@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { User, Disc3, ListMusic, Info, LogOut } from "lucide-react";
+import { User, Disc3, ListMusic,  LogOut } from "lucide-react";
 import { useScroll } from "@/src/shared/hooks/useScroll";
 import { cn } from "@/src/shared/lib/cn/utils";
 import ContainerContent from "@/src/shared/components/ContainerContent";
@@ -65,7 +65,7 @@ export default function Header({
         className={cn(
           "fixed top-0 left-0 z-40 w-full border-b transition-all duration-300",
           scrolled
-            ? "bg-dark-900/90 backdrop-blur2xl border-dark-700/10 shadow-soft"
+            ? "bg-linear-to-tr from-black/80 via-[#051018]/70 to-black/95 backdrop-blur-2xl border-zinc-700/10 shadow-soft"
             : "bg-transparent border-transparent"
         )}
       >
@@ -134,7 +134,7 @@ export default function Header({
                 >
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-3 px-4 py-3 text-dark-200 hover:text-red-400 hover:bg-red-500/10 text-sm whitespace-nowrap transition-colors duration-200 w-full"
+                    className="cursor-pointer flex items-center gap-3 px-4 py-3 text-dark-200 hover:text-red-400 hover:bg-red-500/10 text-sm whitespace-nowrap transition-colors duration-200 w-full"
                   >
                     <LogOut className="size-4" />
                     Cerrar sesión
