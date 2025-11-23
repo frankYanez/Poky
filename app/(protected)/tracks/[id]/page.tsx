@@ -75,7 +75,7 @@ export default function TrackDetailPage() {
   return (
     <AuthGuard requireAuth={true} redirectTo="/">
       <Header />
-      <ContainerSection padding="sm" minHeight="screen">
+      <ContainerSection  padding="sm" minHeight="screen">
         <div className="flex relative bg-gradient-to-b from-dark-800 to-dark-900 overflow-hidden p-6 rounded-2xl">
           <ContainerContent maxWidth="compact" className="relative z-10">
             <button

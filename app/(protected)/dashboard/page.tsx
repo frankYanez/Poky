@@ -94,7 +94,7 @@ export default function DashboardPage() {
 
   return (
     <AuthGuard requireAuth={true} redirectTo="/">
-      <Header ens={"mddjd"} />
+      <Header ens={ensName} />
       {Array.isArray(dataTrack) ? (
         <Tracks items={dataTrack as RemoteTrack[]} modules={dataModule} />
       ) : (

@@ -62,6 +62,7 @@ export default function Header({
   const links = [
     { label: "Mis cursos", href: "/", icon: GraduationCap },
     { label: "Explorar", href: "/courses", icon: BookOpen },
+    { label: ensLabel ? ensLabel : "Cuenta", href: "#", icon: User, ens: !!ensLabel },
   ];
 
   return (
