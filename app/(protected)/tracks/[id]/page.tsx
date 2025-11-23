@@ -5,7 +5,7 @@ import { AuthGuard } from "@/src/features/autentication/components/AuthGuard";
 import { getTrackById } from "@/src/features/home/data/tracks";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { ArrowLeft, Clock, Award, User, Play, BookOpen, HelpCircle, Code, Check, Lock } from "lucide-react";
+import { ArrowLeft, Clock, Award, User, Play, BookOpen, HelpCircle, Code, Calendar } from "lucide-react";
 import ContainerContent from "@/src/shared/components/ContainerContent";
 import ContainerSection from "@/src/shared/components/ContainerSection";
 import type { Module } from "@/src/features/home/data/tracks";
@@ -185,54 +185,80 @@ export default function TrackDetailPage() {
           </div>
 
           <div className="space-y-3">
-            {track.modules.map((module, index) => (
-              <div
-                key={module.id}
-                onClick={() => {
-                  if (!module.locked) {
-                    router.push(`/tracks/${trackId}/module/stablecoins-fundamentals`);
-                  }
-                }}
-                className={`group relative glass-card rounded-2xl p-5 transition-all duration-200 ${
-                  module.locked
-                    ? "opacity-50 cursor-not-allowed"
-                    : "cursor-pointer hover:bg-dark-700/30 hover:shadow-soft"
-                }`}
-              >
-                <div className="flex items-center gap-4">
-                  {/* Module number / status */}
-                  <div
-                    className={`
-                      relative flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm
-                      ${module.completed
-                        ? "bg-gradient-to-br from-gold-500 to-gold-400 text-dark-900"
-                        : module.locked
+            {track.modules.map((module, index) => {
+              // Solo el primer módulo está disponible, los demás son "Próximamente"
+              const isAvailable = index === 0;
+              const isComingSoon = index > 0;
+
+              return (
+                <div
+                  key={module.id}
+                  onClick={() => {
+                    if (isAvailable) {
+                      router.push(`/tracks/${trackId}/module/stablecoins-fundamentals`);
+                    }
+                  }}
+                  className={`group relative glass-card rounded-2xl p-5 transition-all duration-200 ${
+                    isComingSoon
+                      ? "opacity-60 cursor-not-allowed"
+                      : "cursor-pointer hover:bg-dark-700/30 hover:shadow-soft"
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    {/* Module number / status */}
+                    <div
+                      className={`
+                        relative flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm
+                        ${isComingSoon
                           ? "bg-dark-700 text-dark-500"
                           : "bg-dark-700/50 border border-violet-500/30 text-violet-400"
-                      }
-                    `}
-                  >
-                    {module.completed ? (
-                      <Check className="size-5" />
-                    ) : module.locked ? (
-                      <Lock className="size-4" />
-                    ) : (
-                      index + 1
+                        }
+                      `}
+                    >
+                      {isComingSoon ? (
+                        <Calendar className="size-4" />
+                      ) : (
+                        index + 1
+                      )}
+                    </div>
+
+                    {/* Module info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className={`font-semibold truncate ${isComingSoon ? "text-dark-400" : "text-dark-100"}`}>
+                          {module.title}
+                        </h3>
+                        {isComingSoon && (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide bg-violet-500/10 text-violet-400 border border-violet-500/20">
+                            Próximamente
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-dark-400 truncate">{module.description}</p>
+                    </div>
+
+                    {/* Module meta */}
+                    <div className="hidden sm:flex items-center gap-4 flex-shrink-0">
+                      <div className="flex items-center gap-1.5 text-dark-400">
+                        {getModuleIcon(module.type)}
+                        <span className="text-xs">{getModuleTypeLabel(module.type)}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-dark-400">
+                        <Clock className="size-3.5" />
+                        <span className="text-xs">{module.duration}</span>
+                      </div>
+                    </div>
+
+                    {/* Action indicator */}
+                    {isAvailable && (
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Play className="size-4" />
+                      </div>
                     )}
                   </div>
 
-                  {/* Module info */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className={`font-semibold truncate ${module.completed ? "text-dark-200" : "text-dark-100"}`}>
-                        {module.title}
-                      </h3>
-                    </div>
-                    <p className="text-sm text-dark-400 truncate">{module.description}</p>
-                  </div>
-
-                  {/* Module meta */}
-                  <div className="hidden sm:flex items-center gap-4 flex-shrink-0">
+                  {/* Mobile meta */}
+                  <div className="flex sm:hidden items-center gap-4 mt-3 pt-3 border-t border-dark-700/50">
                     <div className="flex items-center gap-1.5 text-dark-400">
                       {getModuleIcon(module.type)}
                       <span className="text-xs">{getModuleTypeLabel(module.type)}</span>
@@ -242,28 +268,9 @@ export default function TrackDetailPage() {
                       <span className="text-xs">{module.duration}</span>
                     </div>
                   </div>
-
-                  {/* Action indicator */}
-                  {!module.locked && !module.completed && (
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Play className="size-4" />
-                    </div>
-                  )}
                 </div>
-
-                {/* Mobile meta */}
-                <div className="flex sm:hidden items-center gap-4 mt-3 pt-3 border-t border-dark-700/50">
-                  <div className="flex items-center gap-1.5 text-dark-400">
-                    {getModuleIcon(module.type)}
-                    <span className="text-xs">{getModuleTypeLabel(module.type)}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-dark-400">
-                    <Clock className="size-3.5" />
-                    <span className="text-xs">{module.duration}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </ContainerContent>
       </ContainerSection>
