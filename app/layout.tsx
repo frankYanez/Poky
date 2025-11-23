@@ -9,12 +9,6 @@ import { cookieToInitialState } from "wagmi";
 import { headers } from "next/headers";
 import { configWagmi } from "@/config";
 
-const responseHeaders = await headers();
-const initialState = cookieToInitialState(
-  configWagmi,
-  responseHeaders.get("cookie")
-);
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -73,11 +67,14 @@ function AppBackground() {
   );
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const responseHeaders = headers();
+  const initialState = cookieToInitialState(configWagmi);
+
   return (
     <html lang="en">
       <body

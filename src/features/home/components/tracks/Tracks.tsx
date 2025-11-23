@@ -4,21 +4,15 @@ import ContainerContent from "@/src/shared/components/ContainerContent";
 import ContainerSection from "@/src/shared/components/ContainerSection";
 import TrackCard from "./TrackCard";
 import Image from "next/image";
-import { tracks } from "@/src/features/home/data/tracks";
+// router not needed: TrackCard maneja la navegación internamente
+import { RemoteTrack } from "@/app/(protected)/dashboard/page";
 
-export function Tracks() {
-  const completedCount = tracks.filter((t) => t.progress === 100).length;
-  const totalPoints = tracks.reduce(
-    (acc, t) => acc + Math.floor((t.points * t.progress) / 100),
-    0
-  );
-
+export function Tracks({ items }: { items: RemoteTrack[] }) {
   return (
     <ContainerSection id="tracks" padding="none" minHeight="screen">
       <ContainerContent maxWidth="compact" className="py-8">
-        {/* Section Header */}
+        {/* Header */}
         <div className="text-center mb-12 mt-10">
-          {/* Badge Icon */}
           <div className="relative inline-flex items-center justify-center w-80 h-80 mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-violet-500/30 to-violet-300/20 rounded-full blur-xl animate-glow-pulse" />
             <Image
@@ -30,17 +24,14 @@ export function Tracks() {
             />
           </div>
 
-          {/* Title */}
           <h2 className="text-3xl md:text-4xl font-bold text-dark-100 mb-3 tracking-tight">
             Tus Learning Tracks
           </h2>
 
-          {/* Subtitle */}
           <p className="text-dark-300 text-lg max-w-md mx-auto mb-8">
             Colecciona badges y demuestra tus habilidades en Web3
           </p>
 
-          {/* Stats Pills */}
           <div className="flex flex-wrap justify-center gap-3">
             <div className="inline-flex items-center gap-2 glass-card px-5 py-2.5 rounded-full">
               <Image
@@ -49,11 +40,10 @@ export function Tracks() {
                 width={24}
                 height={24}
               />
-              <span className="font-bold text-violet-400">
-                {completedCount}
-              </span>
+              <span className="font-bold text-violet-400"></span>
               <span className="text-dark-400 text-sm">completados</span>
             </div>
+
             <div className="inline-flex items-center gap-2 glass-card px-5 py-2.5 rounded-full">
               <Image
                 src="/assets/thumbs-up-icon-glossy-glass-render-pink-yellow-gradient.png"
@@ -61,9 +51,10 @@ export function Tracks() {
                 width={24}
                 height={24}
               />
-              <span className="font-bold text-gold-400">{totalPoints}</span>
+              {/* <span className="font-bold text-gold-400">{totalPoints}</span> */}
               <span className="text-dark-400 text-sm">puntos</span>
             </div>
+
             <div className="inline-flex items-center gap-2 glass-card px-5 py-2.5 rounded-full">
               <Image
                 src="/assets/blue-purple-glass-heart.png"
@@ -71,20 +62,25 @@ export function Tracks() {
                 width={24}
                 height={24}
               />
-              <span className="font-bold text-dark-200">{tracks.length}</span>
+              <span className="font-bold text-dark-200">{items.length}</span>
               <span className="text-dark-400 text-sm">tracks</span>
             </div>
           </div>
         </div>
 
         {/* Cards Grid */}
+        {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {tracks.map((track, index) => (
-            <TrackCard key={track.id} {...track} comingSoon={index > 0} />
+          {items.map((track, index) => (
+            <TrackCard
+              key={String(track.id)}
+              {...track}
+              comingSoon={index > 0}
+            />
           ))}
         </div>
 
-        {/* Explore More CTA */}
+        {/* Explore CTA */}
         <div className="mt-12 text-center">
           <button className="group inline-flex items-center gap-3 px-8 py-4 glass-card border border-violet-500/30 text-violet-400 font-bold uppercase tracking-wider text-sm rounded-[38px] transition-all duration-300 hover:bg-violet-500/10 hover:border-violet-500/50 hover:shadow-glow hover:scale-[1.02]">
             <span>Explorar más tracks</span>

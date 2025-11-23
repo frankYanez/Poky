@@ -52,10 +52,18 @@ export default function Header({
     };
   }, [showLogout]);
 
+  // Ensure ENS label is a string; sometimes an object (chain) was passed accidentally
+  const ensLabel =
+    typeof ens === "string"
+      ? ens
+      : ens && (ens as any).name
+      ? (ens as any).name
+      : undefined;
+
   const links = [
     { label: "Mis tracks", href: "#", icon: ListMusic },
     { label: "Tracks", href: "#tracks", icon: Disc3 },
-    { label: ens ?? "ens", href: "#", icon: Info, ens: true },
+    { label: ensLabel ?? "ens", href: "#", icon: Info, ens: true },
   ];
 
   return (
