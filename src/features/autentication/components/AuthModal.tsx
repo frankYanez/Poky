@@ -14,8 +14,19 @@ import { cn } from "@/src/shared/lib/cn/utils";
 import { Button } from "@/src/shared/components/Button";
 
 const APP_NAME = "Poky";
-const APP_LOGO =
-  "/assets/logo-poky-grade.png";
+const APP_LOGO = "/assets/logo-poky-grade.png";
+
+// Función para limpiar estilos del body que el modal puede agregar
+const resetBodyStyles = () => {
+  document.body.style.overflow = "";
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+  document.body.style.height = "";
+  document.documentElement.style.overflow = "";
+};
 
 export function AuthModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +42,12 @@ export function AuthModal() {
     if (wasOpen.current && isAuthenticated && !hasRedirected.current) {
       hasRedirected.current = true;
       setIsOpen(false);
+
+      // Limpiar inmediatamente y después de un delay
+      resetBodyStyles();
+      setTimeout(resetBodyStyles, 100);
+      setTimeout(resetBodyStyles, 300);
+
       router.push("/dashboard");
     }
   }, [isAuthenticated, router]);
@@ -44,8 +61,18 @@ export function AuthModal() {
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
+    resetBodyStyles();
+    setTimeout(resetBodyStyles, 100);
     queryClient.invalidateQueries({ queryKey: ["PARA_ACCOUNT"] });
   }, [queryClient]);
+
+  // Limpiar overflow al desmontar el componente
+  useEffect(() => {
+    return () => {
+      resetBodyStyles();
+      setTimeout(resetBodyStyles, 100);
+    };
+  }, []);
 
   const handleOpen = useCallback(() => {
     hasRedirected.current = false;
@@ -54,35 +81,31 @@ export function AuthModal() {
   }, []);
 
   const modalContent = (
-
-    <div  className={cn(isOpen ? "flex" : "hidden", "backdrop-blur fixed inset-0 z-50  items-center justify-center bg-black/50 p-4")}>
-<ParaModal
-      appName={APP_NAME}
-      logo={APP_LOGO}
-      isOpen={isOpen}
-      onClose={handleClose}
-      oAuthMethods={[]}
-      authLayout={[AuthLayout.AUTH_FULL, AuthLayout.EXTERNAL_FULL]}
-      externalWallets={[
-        ExternalWallet.METAMASK,
-        ExternalWallet.WALLETCONNECT,
-      ]}
-      recoverySecretStepEnabled={true}
-      onRampTestMode={true}
-      disableEmailLogin={false}
-      disablePhoneLogin={false}
-
-
-
-    />
+    <div
+      className={cn(
+        isOpen ? "flex" : "hidden",
+        "backdrop-blur fixed inset-0 z-50 items-center justify-center bg-black/50 p-4"
+      )}
+    >
+      <ParaModal
+        appName={APP_NAME}
+        logo={APP_LOGO}
+        isOpen={isOpen}
+        onClose={handleClose}
+        oAuthMethods={[]}
+        authLayout={[AuthLayout.AUTH_FULL, AuthLayout.EXTERNAL_FULL]}
+        externalWallets={[ExternalWallet.METAMASK, ExternalWallet.WALLETCONNECT]}
+        recoverySecretStepEnabled={true}
+        onRampTestMode={true}
+        disableEmailLogin={false}
+        disablePhoneLogin={false}
+      />
     </div>
   );
+
   return (
     <>
-
-      <Button
-        onClick={handleOpen}
-       intent="primary" size="lg" weight="md">
+      <Button onClick={handleOpen} intent="primary" size="lg" weight="lg">
         Sign in
       </Button>
 

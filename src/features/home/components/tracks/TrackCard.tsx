@@ -30,20 +30,35 @@ export default function TrackCard({
   totalModules,
   completedModules,
   comingSoon = false,
-}: TrackCardProps) {
+  setIdTrack,
+}: TrackCardProps & {
+  setIdTrack: React.Dispatch<React.SetStateAction<number>>;
+}) {
   const router = useRouter();
   const isCompleted = progress === 100;
 
   const getDifficultyConfig = () => {
     switch (difficulty) {
       case "Principiante":
-        return { label: "Principiante", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" };
+        return {
+          label: "Principiante",
+          color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+        };
       case "Intermedio":
-        return { label: "Intermedio", color: "bg-violet-500/20 text-violet-400 border-violet-500/30" };
+        return {
+          label: "Intermedio",
+          color: "bg-violet-500/20 text-violet-400 border-violet-500/30",
+        };
       case "Avanzado":
-        return { label: "Avanzado", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" };
+        return {
+          label: "Avanzado",
+          color: "bg-orange-500/20 text-orange-400 border-orange-500/30",
+        };
       default:
-        return { label: "Intermedio", color: "bg-violet-500/20 text-violet-400 border-violet-500/30" };
+        return {
+          label: "Intermedio",
+          color: "bg-violet-500/20 text-violet-400 border-violet-500/30",
+        };
     }
   };
 
@@ -51,13 +66,13 @@ export default function TrackCard({
 
   const handleClick = () => {
     if (comingSoon) return;
-    router.push(`/tracks/${id}`);
+    router.push(`/tracks/${id}n`);
   };
 
   return (
     <div
       onClick={handleClick}
-      className={`group relative glass-card rounded-[24px] overflow-hidden transition-all duration-300 ease-out ${
+      className={`group relative glass-card rounded-[24px] overflow-hidden transition-all duration-300 ease-out bg-black ${
         comingSoon
           ? "cursor-not-allowed opacity-50 grayscale"
           : "cursor-pointer hover:shadow-card-hover hover:-translate-y-2 hover:glass-card-hover"
@@ -103,7 +118,11 @@ export default function TrackCard({
             `}
           >
             {/* Glow behind image */}
-            <div className={`absolute inset-0 rounded-full blur-xl ${isCompleted ? "bg-gold-400/30" : "bg-violet-500/30"} animate-glow-pulse`} />
+            <div
+              className={`absolute inset-0 rounded-full blur-xl ${
+                isCompleted ? "bg-gold-400/30" : "bg-violet-500/30"
+              } animate-glow-pulse`}
+            />
 
             {/* Glass image */}
             <Image
@@ -113,11 +132,7 @@ export default function TrackCard({
               height={60}
               className="relative z-10 drop-shadow-2xl group-hover:animate-float"
             />
-
-         
           </div>
-
-       
         </div>
 
         {/* Points Badge 
@@ -185,6 +200,7 @@ export default function TrackCard({
         */}
         {/* CTA Button */}
         <button
+          onClick={() => setIdTrack(id)}
           className={`
             mt-4 w-full py-3 rounded-[38px]
             font-bold text-sm uppercase tracking-wider
@@ -193,7 +209,7 @@ export default function TrackCard({
             
           `}
         >
-         Continuar
+          Continuar
         </button>
       </div>
     </div>

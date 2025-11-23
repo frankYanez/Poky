@@ -16,6 +16,8 @@
     "@getpara/evm-wallet-connectors": "^1.18.1",
     "@getpara/react-sdk": "^1.18.1",
     "@metamask/sdk": "^0.34.0",
+    "@noir-lang/barretenberg": "^2.22.0",
+    "@noir-lang/noir_js": "^1.0.0-beta.15",
     "@safe-global/safe-apps-provider": "^0.18.6",
     "@safe-global/safe-apps-sdk": "^9.1.0",
     "@tanstack/react-query": "^5.90.10",

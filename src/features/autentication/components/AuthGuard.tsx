@@ -4,6 +4,7 @@ import { useAccount } from "@getpara/react-sdk";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useAuthStore } from "../store/authStore";
+import LoadingPoky from "@/src/shared/components/LoadingPoky";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -66,20 +67,17 @@ export function AuthGuard({ children, requireAuth, redirectTo }: AuthGuardProps)
     hasRedirected.current = false;
   }, [isAuthenticated]);
 
+  // Show loading screen while checking auth or during redirects
   if (isLoading) {
-    return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-        <p>Loading...</p>
-      </div>
-    );
+    return <LoadingPoky />;
   }
 
   if (requireAuth && !isAuthenticated) {
-    return null;
+    return <LoadingPoky />;
   }
 
   if (!requireAuth && isAuthenticated) {
-    return null;
+    return <LoadingPoky />;
   }
 
   return <>{children}</>;
