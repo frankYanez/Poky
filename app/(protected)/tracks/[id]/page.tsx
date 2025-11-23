@@ -188,6 +188,11 @@ export default function TrackDetailPage() {
             {track.modules.map((module, index) => (
               <div
                 key={module.id}
+                onClick={() => {
+                  if (!module.locked) {
+                    router.push(`/tracks/${trackId}/module/stablecoins-fundamentals`);
+                  }
+                }}
                 className={`group relative glass-card rounded-2xl p-5 transition-all duration-200 ${
                   module.locked
                     ? "opacity-50 cursor-not-allowed"
