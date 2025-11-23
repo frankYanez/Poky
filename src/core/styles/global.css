@@ -5,6 +5,14 @@
    ======================================== */
 
 @theme {
+  /* Typography - Crypto Modern Style */
+  --font-family-heading: var(--font-heading), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-family-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: "#9d7bff";
+  --color-secondary: "#4bd2ff";
+
   /* Primary Violet Palette */
   --color-violet-500: #7b61ff;
   --color-violet-600: #6b4fef;
@@ -59,9 +67,39 @@
    ======================================== */
 
 body {
-  background: linear-gradient(180deg, var(--color-dark-900) 0%, var(--color-dark-950) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-dark-900) 0%,
+    var(--color-dark-950) 100%
+  );
   min-height: 100vh;
   color: var(--color-dark-100);
+  font-family: var(--font-family-body);
+}
+
+/* ========================================
+   Typography - Headings (Space Grotesk)
+   ======================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 /* ========================================
@@ -83,33 +121,61 @@ body {
    ======================================== */
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 30px rgba(123, 97, 255, 0.3); }
-  50% { box-shadow: 0 0 50px rgba(123, 97, 255, 0.5); }
+  0%,
+  100% {
+    box-shadow: 0 0 30px rgba(123, 97, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(123, 97, 255, 0.5);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 @keyframes badge-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes celebrate {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 @keyframes glow-pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @utility animate-float {
@@ -131,6 +197,30 @@ body {
 
 @utility animate-glow-pulse {
   animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ========================================
+   Typography Utilities
+   ======================================== */
+
+@utility font-heading {
+  font-family: var(--font-family-heading);
+}
+
+@utility font-body {
+  font-family: var(--font-family-body);
+}
+
+@utility text-gradient-crypto {
+  background: linear-gradient(
+    135deg,
+    var(--color-violet-400) 0%,
+    var(--color-violet-500) 50%,
+    var(--color-gold-400) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ========================================

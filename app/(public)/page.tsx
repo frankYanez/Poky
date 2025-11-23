@@ -14,7 +14,7 @@ export default function LandingPage() {
     <AuthGuard requireAuth={false} redirectTo="/dashboard">
       <Header />
       <Hero />
-      {/* <LandingPage /> */}
+  
 
       <ProblemSection />
       <ContainerContent maxWidth="compact">
@@ -22,12 +22,12 @@ export default function LandingPage() {
           colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
           animationSpeed={3}
           showBorder={false}
-          className="mt-60 mb-40 text-center text-6xl py-26 font-semibold"
+          className="mt-60 mb-40 text-center text-6xl py-26 font-semibold overflow-auto"
         >
-          Poky - Plataforma de Certificados Educativos Descentralizados
+          A Trustless, Immutable, and Portable Proof-of-Knowledge Layer
         </GradientText>
       </ContainerContent>
-      <MagicBento />
+   
 
       <SolutionSection />
       <UseCasesSection />
