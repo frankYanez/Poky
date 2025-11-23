@@ -2,36 +2,9 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import ColorBends from "@/src/landing/components/ColorBends/ColorBends";
 import ContainerSection from "@/src/shared/components/ContainerSection";
 import ContainerContent from "@/src/shared/components/ContainerContent";
-
-const solutions = [
-  {
-    title: "Certificación automatizada",
-    description:
-      "Modelos y agentes validan metadatos, firmas y cumplimiento normativo en segundos con registros distribuidos.",
-    icon: "/assets/glass-check-mark.png",
-    accent: "from-[#8B4DF7aa] via-[#7AB8FFaa] to-[#F7A8D6aa]",
-    glow: "bg-[#8B4DF7]/40",
-  },
-  {
-    title: "Verificación instantánea",
-    description:
-      "QR y credenciales DID permiten validar el certificado con una sola lectura, incluso sin conexión prolongada.",
-    icon: "/assets/like-icon-social-approval-glass-square-button.png",
-    accent: "from-[#7AB8FFaa] via-[#7ADEFFaa] to-[#FFD86Baa]",
-    glow: "bg-[#7AB8FF]/35",
-  },
-  {
-    title: "Inmutabilidad garantizada",
-    description:
-      "Registros inviolables gracias a hashing cuántico-resistente y auditoría perimetral con testigos descentralizados.",
-    icon: "/assets/glass-shield.png",
-    accent: "from-[#FFD86Baa] via-[#F7A8D6aa] to-[#8B4DF7aa]",
-    glow: "bg-[#FFD86B]/30",
-  },
-];
+import { SOLUTION_SECTION_DATA, SOLUTIONS_DATA } from "../data/landingData";
 
 export function SolutionSection() {
   return (
@@ -41,23 +14,21 @@ export function SolutionSection() {
       <ContainerContent maxWidth="compact">
         <header className="flex flex-col gap-4">
           <p className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-white/60">
-            <span className="text-lg">3️⃣</span> La solución
+            <span className="text-lg">{SOLUTION_SECTION_DATA.badgeNumber}</span> {SOLUTION_SECTION_DATA.badge}
           </p>
           <h2
             id="solucion-heading"
             className="text-balance text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl"
           >
-            Nuestra solución: Un protocolo educativo descentralizado
+          An on-chain <span className="text-[#4bd2ff]">protocol</span> to prove what you’ve learned
           </h2>
           <p className="max-w-3xl text-lg text-white/75">
-            Página 3 · Solución al problema. Diseñamos una experiencia visual,
-            rápida y contundente, enfocada en la confianza inmediata de aliados
-            académicos y corporativos.
+            {SOLUTION_SECTION_DATA.description}
           </p>
         </header>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {solutions.map((solution, index) => (
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mt-10">
+          {SOLUTIONS_DATA.map((solution, index) => (
             <motion.article
               key={solution.title}
               className="group relative h-full rounded-[2rem] border border-white/15 bg-white/5 p-6 text-white shadow-2xl backdrop-blur-2xl"
