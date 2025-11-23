@@ -14,11 +14,13 @@ import { useModuleProgressStore } from "@/src/features/module/store/moduleProgre
 import { getModuleContent } from "@/src/features/module/data/moduleLoader";
 import type { Subsection, ModuleContent } from "@/src/features/module/types/moduleContent";
 
+// Por ahora, siempre usar el módulo de stablecoins
+const DEFAULT_MODULE_ID = "stablecoins-fundamentals";
+
 export default function ModulePage() {
   const params = useParams();
   const router = useRouter();
   const trackId = params.id as string;
-  const moduleId = params.moduleId as string;
 
   const [content, setContent] = useState<ModuleContent | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -36,12 +38,13 @@ export default function ModulePage() {
   } = useModuleProgressStore();
 
   useEffect(() => {
-    const moduleContent = getModuleContent(moduleId);
+    // Siempre cargar el módulo por defecto
+    const moduleContent = getModuleContent(DEFAULT_MODULE_ID);
     if (moduleContent) {
       setContent(moduleContent);
-      initModule(moduleId);
+      initModule(DEFAULT_MODULE_ID);
     }
-  }, [moduleId, initModule]);
+  }, [initModule]);
 
   if (!content) {
     return (

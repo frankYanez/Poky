@@ -130,7 +130,8 @@ export default function TrackDetailPage() {
             {dataModule?.map((mod, index) => (
               <div
                 key={String(mod.id)}
-                className="group glass-card rounded-2xl p-5 hover:bg-dark-700/30 transition-all"
+                onClick={() => router.push(`/tracks/${trackId}/module/${mod.id}`)}
+                className="group glass-card rounded-2xl p-5 hover:bg-dark-700/30 transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm bg-dark-700/50 border border-violet-500/30 text-violet-400">
@@ -138,7 +139,7 @@ export default function TrackDetailPage() {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold truncate text-dark-100">
+                    <h3 className="font-semibold truncate text-dark-100 group-hover:text-violet-400 transition-colors">
                       {mod.title}
                     </h3>
 
@@ -157,6 +158,10 @@ export default function TrackDetailPage() {
                       <Clock className="size-3.5" />
                       <span className="text-xs">5 min</span>
                     </div>
+                  </div>
+
+                  <div className="text-dark-400 group-hover:text-violet-400 transition-colors">
+                    <ArrowLeft className="size-4 rotate-180 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </div>
