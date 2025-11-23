@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Icon from "@/public/assets/glass-shield.png";
 
 interface TrackCardProps {
   id: string;
@@ -126,7 +127,7 @@ export default function TrackCard({
 
             {/* Glass image */}
             <Image
-              src={image}
+              src={Icon}
               alt={title}
               width={60}
               height={60}
