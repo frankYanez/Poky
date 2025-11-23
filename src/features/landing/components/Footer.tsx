@@ -75,17 +75,7 @@ const Footer: FC = () => {
           </div>
         </div>
 
-        <nav className="flex gap-6 text-sm">
-          {FOOTER_DATA.navigation.map((item) => (
-            <a
-              key={item.href}
-              className="opacity-80 hover:opacity-100 transition"
-              href={item.href}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+       
 
         <div className="flex items-center gap-3">
           {FOOTER_DATA.socials.map((s) => (
