@@ -11,6 +11,7 @@ import ContainerContent from "@/src/shared/components/ContainerContent";
 import { InfoStep } from "@/src/features/module/components/InfoStep";
 import { SelectionStep } from "@/src/features/module/components/SelectionStep";
 import { useModuleProgressStore } from "@/src/features/module/store/moduleProgressStore";
+import { useTrackProgressStore } from "@/src/features/track/store/trackProgressStore";
 import { getModuleContent } from "@/src/features/module/data/moduleLoader";
 import type { Subsection, ModuleContent } from "@/src/features/module/types/moduleContent";
 
@@ -21,6 +22,7 @@ export default function ModulePage() {
   const params = useParams();
   const router = useRouter();
   const trackId = params.id as string;
+  const moduleId = params.moduleId as string;
 
   const [content, setContent] = useState<ModuleContent | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -36,6 +38,8 @@ export default function ModulePage() {
     getCurrentGlobalIndex,
     getTotalSteps,
   } = useModuleProgressStore();
+
+  const { markModuleCompleted } = useTrackProgressStore();
 
   useEffect(() => {
     // Siempre cargar el módulo por defecto
@@ -68,6 +72,7 @@ export default function ModulePage() {
     const hasNext = nextStep(content);
     if (!hasNext) {
       completeModule();
+      markModuleCompleted(trackId, moduleId);
       setIsCompleted(true);
     }
   };
