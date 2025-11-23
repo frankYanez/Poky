@@ -7,7 +7,12 @@ import Image from "next/image";
 // router not needed: TrackCard maneja la navegación internamente
 import { RemoteTrack } from "@/app/(protected)/dashboard/page";
 
-export function Tracks({ items }: { items: RemoteTrack[] }) {
+export function Tracks({ items , modules }: { items: RemoteTrack[], modules: any}) {
+  // Calculate total points from modules data
+  // const totalPoints = modules
+  //   ? modules.reduce((total: number, module: any) => total + (module.points || 0), 0)
+  //   : 0;}) {
+  
   return (
     <ContainerSection id="tracks" padding="none" minHeight="screen">
       <ContainerContent maxWidth="compact" className="py-8">

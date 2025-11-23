@@ -19,7 +19,6 @@ export default function Header({
   ens: GetEnsNameReturnType | undefined;
 }) {
   const chainId = useChainId();
-  console.log("CHAIN ID:", chainId);
   const [showLogout, setShowLogout] = useState(false);
   const scrolled = useScroll(10);
 
@@ -63,7 +62,7 @@ export default function Header({
   const links = [
     { label: "Mis tracks", href: "#", icon: ListMusic },
     { label: "Tracks", href: "#tracks", icon: Disc3 },
-    { label: ensLabel ?? "ens", href: "#", icon: Info, ens: true },
+    // { label: ensLabel ?? "ens", href: "#", icon: Info, ens: true },
   ];
 
   return (

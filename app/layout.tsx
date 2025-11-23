@@ -9,11 +9,11 @@ import { headers } from "next/headers";
 import { configWagmi } from "@/config";
 import Footer from "@/src/features/landing/components/Footer";
 
-const responseHeaders = await headers();
-const initialState = cookieToInitialState(
-  configWagmi,
-  responseHeaders.get("cookie")
-);
+// const responseHeaders = await headers();
+// const initialState = cookieToInitialState(
+//   configWagmi,
+//   responseHeaders.get("cookie")
+// );
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -80,7 +80,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const responseHeaders = headers();
+  const responseHeaderºs = headers();
   const initialState = cookieToInitialState(configWagmi);
 
   return (

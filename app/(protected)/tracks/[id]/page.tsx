@@ -19,7 +19,8 @@ import Header from "@/src/features/home/components/header/Header";
 
 import { useTrack } from "@/src/features/home/hooks/useTrack";
 import { useModules } from "@/src/features/home/hooks/useModules";
-import type { RemoteTrack } from "@/app/(protected)/dashboard/page";
+import { MODULE_ABI, MODULE_REGISTRY_ADDRESS, type RemoteTrack } from "@/app/(protected)/dashboard/page";
+import { useReadContract } from "wagmi";
 
 export default function TrackDetailPage() {
   const params = useParams();
@@ -28,10 +29,20 @@ export default function TrackDetailPage() {
 
   const track: RemoteTrack | null = useTrack(trackId);
 
+  
+     const { data: dataModule } = useReadContract({
+    address: MODULE_REGISTRY_ADDRESS,
+    abi: MODULE_ABI,
+    functionName: "getModules",
+    args: [0, 20], // offset, limit
+    chainId: undefined,
+    query: { enabled: true },
+  });
   if (!track) return notFound();
 
-  const moduleIds = track.moduleIds ?? [];
-  const modules = useModules(moduleIds);
+  console.log("Track data:", dataModule);
+
+  
 
   const getDifficultyConfig = () => ({
     color: "bg-violet-500/20 text-violet-400 border-violet-500/30",
@@ -124,7 +135,7 @@ export default function TrackDetailPage() {
           </h2>
 
           <div className="space-y-3">
-            {modules.map((mod, index) => (
+            {dataModule?.map((mod, index) => (
               <div
                 key={String(mod.id)}
                 className="group glass-card rounded-2xl p-5 hover:bg-dark-700/30 transition-all"

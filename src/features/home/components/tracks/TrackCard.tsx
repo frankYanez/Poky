@@ -66,13 +66,13 @@ export default function TrackCard({
 
   const handleClick = () => {
     if (comingSoon) return;
-    router.push(`/tracks/${id}`);
+    router.push(`/tracks/${id}n`);
   };
 
   return (
     <div
       onClick={handleClick}
-      className={`group relative glass-card rounded-[24px] overflow-hidden transition-all duration-300 ease-out ${
+      className={`group relative glass-card rounded-[24px] overflow-hidden transition-all duration-300 ease-out bg-black ${
         comingSoon
           ? "cursor-not-allowed opacity-50 grayscale"
           : "cursor-pointer hover:shadow-card-hover hover:-translate-y-2 hover:glass-card-hover"
