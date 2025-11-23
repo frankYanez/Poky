@@ -53,8 +53,8 @@ export default function Header({
   }, [showLogout]);
 
   const links = [
-    { label: "Mis cursos", href: "#", icon: GraduationCap },
-    { label: "Explorar", href: "#courses", icon: BookOpen },
+    { label: "Mis cursos", href: "/", icon: GraduationCap },
+    { label: "Explorar", href: "/courses", icon: BookOpen },
   ];
 
   return (
@@ -125,7 +125,7 @@ export default function Header({
                 {/* Logout dropdown desktop */}
                 <div
                   className={cn(
-                    "absolute right-0 top-14 glass-card rounded-xl overflow-hidden transition-all duration-200",
+                    "absolute left-0 top-14 glass-card rounded-xl overflow-hidden transition-all duration-200",
                     showLogout
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 -translate-y-2 pointer-events-none"
@@ -144,6 +144,20 @@ export default function Header({
 
             {/* Mobile: Avatar con logout */}
             <div className="relative flex items-center gap-2 md:hidden">
+              {/* Logout button slide mobile */}
+              <button
+                onClick={handleLogout}
+                className={cn(
+                  "flex items-center gap-2 px-3 py-1.5 rounded-xl glass-card text-red-400 text-sm transition-all duration-200",
+                  showLogout
+                    ? "opacity-100 translate-x-0"
+                    : "opacity-0 translate-x-4 pointer-events-none"
+                )}
+              >
+                <LogOut className="size-4" />
+                Salir
+              </button>
+
               <button
                 onClick={() => setShowLogout(!showLogout)}
                 className={cn(
@@ -153,20 +167,6 @@ export default function Header({
                 )}
               >
                 <User className="size-4 text-dark-200" />
-              </button>
-
-              {/* Logout button slide mobile */}
-              <button
-                onClick={handleLogout}
-                className={cn(
-                  "flex items-center gap-2 px-3 py-1.5 rounded-xl glass-card text-red-400 text-sm transition-all duration-200",
-                  showLogout
-                    ? "opacity-100 translate-x-0"
-                    : "opacity-0 -translate-x-4 pointer-events-none"
-                )}
-              >
-                <LogOut className="size-4" />
-                Salir
               </button>
             </div>
           </nav>
