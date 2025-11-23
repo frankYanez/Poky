@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { User, Disc3, ListMusic,  LogOut } from "lucide-react";
+import { User, GraduationCap, BookOpen, LogOut } from "lucide-react";
 import { useScroll } from "@/src/shared/hooks/useScroll";
 import { cn } from "@/src/shared/lib/cn/utils";
 import ContainerContent from "@/src/shared/components/ContainerContent";
@@ -44,8 +44,8 @@ export default function Header() {
   }, [showLogout]);
 
   const links = [
-    { label: "Mis tracks", href: "#", icon: ListMusic },
-    { label: "Tracks", href: "#tracks", icon: Disc3 },
+    { label: "Mis cursos", href: "#", icon: GraduationCap },
+    { label: "Explorar", href: "#courses", icon: BookOpen },
   ];
 
   return (
