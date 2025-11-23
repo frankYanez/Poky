@@ -51,18 +51,12 @@ export default function Header({
     };
   }, [showLogout]);
 
-  // Ensure ENS label is a string; sometimes an object (chain) was passed accidentally
-  const ensLabel =
-    typeof ens === "string"
-      ? ens
-      : ens && (ens as any).name
-      ? (ens as any).name
-      : undefined;
+  
 
   const links = [
     { label: "Mis cursos", href: "/", icon: GraduationCap },
     { label: "Explorar", href: "/courses", icon: BookOpen },
-    { label: ensLabel ? ensLabel : "Cuenta", href: "#", icon: User, ens: !!ensLabel },
+    { label: ens ? ens : "Cuenta", href: "#", icon: User, ens: !!ens },
   ];
 
   return (
