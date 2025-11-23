@@ -8,26 +8,15 @@ import {
   metaMaskWallet,
   walletConnectWallet,
 } from "@getpara/evm-wallet-connectors";
-import {
-  mainnet,
-  sepolia,
-  polygon,
-  arbitrum,
-  base,
-  optimism,
-} from "wagmi/chains";
-import { http } from "viem";
 import "@getpara/react-sdk/styles.css";
-import { State, WagmiProvider } from "wagmi";
-import { configWagmi } from "@/config";
+import { type State } from "wagmi";
+import { wagmiConfigParameters } from "@/config";
 import LoadingPoky from "@/src/shared/components/LoadingPoky";
 
 const PARA_API_KEY = process.env.NEXT_PUBLIC_PARA_API_KEY || "";
 const PARA_ENV = Environment.BETA;
 const WALLET_CONNECT_PROJECT_ID =
   process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "demo";
-
-const chains = [mainnet, sepolia, polygon, arbitrum, base, optimism] as const;
 
 export function Providers({
   children,
@@ -75,41 +64,32 @@ export function Providers({
   }
 
   return (
-    <WagmiProvider config={configWagmi} initialState={initialState}>
-      <QueryClientProvider client={queryClient}>
-        <ParaProvider
-          paraClientConfig={{
-            env: PARA_ENV,
-            apiKey: PARA_API_KEY,
-          }}
-          externalWalletConfig={{
-            wallets: [ExternalWallet.METAMASK, ExternalWallet.WALLETCONNECT],
-          }}
+    <QueryClientProvider client={queryClient}>
+      <ParaProvider
+        paraClientConfig={{
+          env: PARA_ENV,
+          apiKey: PARA_API_KEY,
+        }}
+        externalWalletConfig={{
+          wallets: [ExternalWallet.METAMASK, ExternalWallet.WALLETCONNECT],
+        }}
+        config={{
+          appName: "Poky",
+        }}
+        callbacks={callbacks}
+      >
+        <ParaEvmProvider
           config={{
+            ...wagmiConfigParameters,
+            projectId: WALLET_CONNECT_PROJECT_ID,
             appName: "Poky",
+            wallets: [metaMaskWallet, walletConnectWallet],
           }}
-          callbacks={callbacks}
+          initialState={initialState}
         >
-          <ParaEvmProvider
-            config={{
-              projectId: WALLET_CONNECT_PROJECT_ID,
-              appName: "Poky",
-              chains: chains,
-              wallets: [metaMaskWallet, walletConnectWallet],
-              transports: {
-                [mainnet.id]: http(),
-                [sepolia.id]: http(),
-                [polygon.id]: http(),
-                [arbitrum.id]: http(),
-                [base.id]: http(),
-                [optimism.id]: http(),
-              },
-            }}
-          >
-            {children}
-          </ParaEvmProvider>
-        </ParaProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+          {children}
+        </ParaEvmProvider>
+      </ParaProvider>
+    </QueryClientProvider>
   );
 }

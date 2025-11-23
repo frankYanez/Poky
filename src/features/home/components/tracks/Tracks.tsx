@@ -19,7 +19,7 @@ export function Tracks() {
         {/* Section Header */}
         <div className="text-center mb-12 mt-10">
           {/* Badge Icon */}
-          <div className="relative inline-flex items-center justify-center w-20 h-20 mb-6">
+          <div className="relative inline-flex items-center justify-center w-80 h-80 mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-violet-500/30 to-violet-300/20 rounded-full blur-xl animate-glow-pulse" />
             <Image
               src="/assets/glass-pie-chart.png"
@@ -49,7 +49,9 @@ export function Tracks() {
                 width={24}
                 height={24}
               />
-              <span className="font-bold text-violet-400">{completedCount}</span>
+              <span className="font-bold text-violet-400">
+                {completedCount}
+              </span>
               <span className="text-dark-400 text-sm">completados</span>
             </div>
             <div className="inline-flex items-center gap-2 glass-card px-5 py-2.5 rounded-full">

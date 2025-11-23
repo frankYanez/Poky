@@ -1,14 +1,14 @@
-import { createConfig, http , createStorage, cookieStorage} from 'wagmi'
-import { mainnet, sepolia } from 'wagmi/chains'
+import { createConfig, createStorage, cookieStorage } from 'wagmi'
 
-export const configWagmi = createConfig({
-  chains: [mainnet, sepolia],
+import { wagmiChains, wagmiTransports } from '@/chains/chains'
+
+export const wagmiConfigParameters = {
+  chains: wagmiChains,
   ssr: true,
-    storage: createStorage({
+  storage: createStorage({
     storage: cookieStorage,
   }),
-  transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-  },
-})
+  transports: wagmiTransports,
+} as const
+
+export const configWagmi = createConfig(wagmiConfigParameters)
