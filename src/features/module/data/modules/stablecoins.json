@@ -1,0 +1,92 @@
+{
+  "id": "stablecoins-fundamentals",
+  "title": "Stablecoins: Fundamentos",
+  "description": "Comprende los diferentes tipos de stablecoins, sus mecanismos y casos de uso.",
+  "sections": [
+    {
+      "title": "Introducción a Stablecoins",
+      "description": "Conceptos básicos y tipos de stablecoins.",
+      "subsections": [
+        {
+          "title": "¿Qué es una Stablecoin?",
+          "type": "INFO",
+          "content": "- Criptomonedas diseñadas para mantener un valor estable (generalmente 1 USD).\n- Facilitan el comercio y reducen la volatilidad.\n- Actúan como puente entre finanzas tradicionales y DeFi."
+        },
+        {
+          "title": "Tipos principales",
+          "type": "INFO",
+          "content": "- Colateralizadas por fiat (USDC, USDT): respaldadas 1:1 por reservas bancarias.\n- Colateralizadas por cripto (DAI): sobrecolateralizadas con ETH u otros activos.\n- Algorítmicas: mantienen el peg mediante mecanismos de oferta/demanda."
+        },
+        {
+          "title": "Identificar el tipo",
+          "type": "SIMPLE_SELECTION",
+          "content": "DAI es una stablecoin que mantiene su peg mediante:",
+          "options": [
+            "Reservas en dólares en bancos tradicionales.",
+            "Sobrecolateralización con criptoactivos y liquidaciones automáticas.",
+            "Un algoritmo que ajusta la oferta según demanda.",
+            "Respaldo en oro físico auditado."
+          ],
+          "answerHash": "0x8a35acfbc15ff81a39ae7d344fd709f28e8600b4aa8c65c6b64bfe7fe36bd19b"
+        }
+      ]
+    },
+    {
+      "title": "Casos de uso en DeFi",
+      "description": "Aplicaciones prácticas de stablecoins.",
+      "subsections": [
+        {
+          "title": "Pagos y remesas",
+          "type": "INFO",
+          "content": "- Remesas cross-border con costos bajos y liquidación rápida.\n- On/off ramps: UX simple, custodia en hot/cold wallets.\n- Comercio electrónico: reduce volatilidad en tesorerías crypto."
+        },
+        {
+          "title": "Lending y yield",
+          "type": "INFO",
+          "content": "- Depositar stablecoins en money markets (Aave, Compound) genera interés.\n- Estrategias de farming: proveer liquidez en AMMs, staking de LP tokens.\n- Riesgos: tasas variables, impermanent loss si se usa con pares volátiles."
+        },
+        {
+          "title": "Elección de stablecoin",
+          "type": "SIMPLE_SELECTION",
+          "content": "Necesitas colateral estable para un préstamo a 6 meses. ¿Cuál eliges primero?",
+          "options": [
+            "Una stablecoin sobrecolateralizada con oráculos robustos.",
+            "Un token de gobernanza volátil.",
+            "Un meme coin con supply inflacionario.",
+            "Un wrapped BTC."
+          ],
+          "answerHash": "0xd915708ddd1a03eb418dd622cca1d6ba2ec41370058132cbc2628a6863e17530"
+        }
+      ]
+    },
+    {
+      "title": "Regulación, transparencia y auditoría",
+      "description": "Aspectos legales y de confianza.",
+      "subsections": [
+        {
+          "title": "Cumplimiento y KYC/AML",
+          "type": "INFO",
+          "content": "- Issuers centralizados requieren KYC/AML y pueden tener listas negras.\n- Riesgo de censura en direcciones sancionadas.\n- Jurisdicción: licencias de money transmitter, e-money o marcos específicos de stablecoins según país."
+        },
+        {
+          "title": "Pruebas de reservas",
+          "type": "INFO",
+          "content": "- Attestations periódicos por auditores (USDC, USDT) vs proof-of-reserves on-chain.\n- Métricas: composición (cash, T-Bills, cripto), madurez de bonos, contrapartes bancarias."
+        },
+        {
+          "title": "Checklist rápida",
+          "type": "MULTIPLE_SELECTION",
+          "content": "Marca buenas prácticas para evaluar una stablecoin:",
+          "options": [
+            "Auditorías o attestations frecuentes y públicas.",
+            "Mecanismos claros de acuñación/redención.",
+            "Dependencia de un único banco sin disclosures.",
+            "Diversificación de colateral y límites por activo.",
+            "Oráculos con fallback y delays configurables."
+          ],
+          "answersHash": "0x1683ed41fe6b3549760b7b0af30789dc6e58b966431ea56ddafaa00c53f0e04e"
+        }
+      ]
+    }
+  ]
+}
