@@ -9,8 +9,17 @@ import { useAuthStore } from "@/src/features/autentication/store/authStore";
 import { useLogout } from "@getpara/react-sdk";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { GetEnsNameReturnType } from "viem";
 
-export default function Header() {
+import { useChainId } from "wagmi";
+
+export default function Header({
+  ens,
+}: {
+  ens: GetEnsNameReturnType | undefined;
+}) {
+  const chainId = useChainId();
+  console.log("CHAIN ID:", chainId);
   const [showLogout, setShowLogout] = useState(false);
   const scrolled = useScroll(10);
 
@@ -88,7 +97,9 @@ export default function Header() {
                         size: "sm",
                         weight: "md",
                       }),
-                      "text-dark-200 hover:text-dark-100 hover:bg-dark-700/50 gap-2"
+                      link.ens
+                        ? "text-emerald-500 hover:text-dark-100 hover:bg-dark-700/50 gap-2"
+                        : " text-dark-200 hover:text-dark-100 hover:bg-dark-700/50 gap-2"
                     )}
                     href={link.href}
                   >

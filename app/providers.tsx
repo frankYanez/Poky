@@ -8,18 +8,23 @@ import {
   metaMaskWallet,
   walletConnectWallet,
 } from "@getpara/evm-wallet-connectors";
-import { mainnet, sepolia, polygon, arbitrum, base, optimism } from "wagmi/chains";
-import { http } from "viem";
 import "@getpara/react-sdk/styles.css";
+import { type State } from "wagmi";
+import { wagmiConfigParameters } from "@/config";
+import LoadingPoky from "@/src/shared/components/LoadingPoky";
 
 const PARA_API_KEY = process.env.NEXT_PUBLIC_PARA_API_KEY || "";
 const PARA_ENV = Environment.BETA;
 const WALLET_CONNECT_PROJECT_ID =
   process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "demo";
 
-const chains = [mainnet, sepolia, polygon, arbitrum, base, optimism] as const;
-
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  children,
+  initialState,
+}: {
+  children: React.ReactNode;
+  initialState: State | undefined;
+}) {
   const [mounted, setMounted] = useState(false);
 
   const [queryClient] = useState(
@@ -55,11 +60,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   if (!mounted) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p>Loading...</p>
-      </div>
-    );
+    return <LoadingPoky loading={true} />;
   }
 
   return (
@@ -87,21 +88,12 @@ paraModalConfig={{
       >
         <ParaEvmProvider
           config={{
+            ...wagmiConfigParameters,
             projectId: WALLET_CONNECT_PROJECT_ID,
             appName: "Poky",
-            chains: chains,
             wallets: [metaMaskWallet, walletConnectWallet],
-            transports: {
-              [mainnet.id]: http(),
-              [sepolia.id]: http(),
-              [polygon.id]: http(),
-              [arbitrum.id]: http(),
-              [base.id]: http(),
-              [optimism.id]: http(),
-            },
           }}
-
-
+          initialState={initialState}
         >
           {children}
         </ParaEvmProvider>
