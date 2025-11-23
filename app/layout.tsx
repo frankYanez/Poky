@@ -4,16 +4,10 @@ import { Providers } from "./providers";
 import { ReactNode } from "react";
 import "@/src/core/styles/global.css";
 import ColorBends from "@/src/landing/components/ColorBends/ColorBends";
-import Footer from "@/src/features/landing/components/Footer/Footer";
+import Footer from "@/src/features/landing/components/Footer";
 import { cookieToInitialState } from "wagmi";
 import { headers } from "next/headers";
 import { configWagmi } from "@/config";
-
-const responseHeaders = await headers();
-const initialState = cookieToInitialState(
-  configWagmi,
-  responseHeaders.get("cookie")
-);
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -75,11 +69,17 @@ function AppBackground() {
   );
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const responseHeaders = await headers();
+  const initialState = cookieToInitialState(
+    configWagmi,
+    responseHeaders.get("cookie")
+  );
+
   return (
     <html lang="en">
       <body
