@@ -5,6 +5,15 @@ import { ReactNode } from "react";
 import "@/src/core/styles/global.css";
 import ColorBends from "@/src/landing/components/ColorBends/ColorBends";
 import Footer from "@/src/features/landing/components/Footer/Footer";
+import { cookieToInitialState } from "wagmi";
+import { headers } from "next/headers";
+import { configWagmi } from "@/config";
+
+const responseHeaders = await headers();
+const initialState = cookieToInitialState(
+  configWagmi,
+  responseHeaders.get("cookie")
+);
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,7 +84,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AppBackground />
-        <Providers>{children}</Providers>
+        <Providers initialState={initialState}>{children}</Providers>
         <Footer />
       </body>
     </html>
